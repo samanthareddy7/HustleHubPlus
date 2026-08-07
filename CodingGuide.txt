@@ -1,0 +1,82 @@
+
+OVERALL CHECKLIST FOR PART 1: 
+
+----------------------------------------------------------------------------------------
+|     ITEM                   |           TEAM MEMBER           |    COMPLETED          |
+----------------------------------------------------------------------------------------
+| 1. Build Express server    |           Samantha              |    ✅✅✅✅✅✅✅       |
+| 2. Create User Model       |           TEAM MEMBER           |                       |
+| 3. Registration API        |           TEAM MEMBER           |                       |
+| 4. Password hashing        |                                 |                       |
+|  (bcrypt)|                 |                                 |                       |
+| 5. Login API               |           TEAM MEMBER           |                       |
+| 6. Database(MongoDB)       |           TEAM MEMBER           |                       |
+| 7. JWT generation          |           TEAM MEMBER           |                       |
+| 8. JWT middleware          |           TEAM MEMBER           |                       |
+| 9. Protected route         |           TEAM MEMBER           |                       |
+| 10. Input validation       |           TEAM MEMBER           |                       |
+| 11. Secure error handling  |           TEAM MEMBER           |                       |
+| 12. HTTPS certificates.    |           TEAM MEMBER           |                       |
+| 13. Architecture diagram(. |                                 |                       |
+    MERN)                    |                                 |                       |
+| 14. README                 |           TEAM MEMBER           |                       |
+| 15. Postman collection     |           TEAM MEMBER           |                       |
+| 16. Screenshots            |           TEAM MEMBER           |                       |
+| 17. Demo video             |           TEAM MEMBER           |                       |
+----------------------------------------------------------------------------------------
+
+Tech Stack (MERN): 
+
+M = MongoDB  (database)
+E = Express (backend framework)
+R = React (frontend framework)
+N = Node.js (allows to execute code on the server)
+
+
+PART 1 Explanation:
+
+Core functionality
+ 
+* POST /api/auth/register — creates a user (in-memory or file-based storage is fine for now.
+preferably will use MongoDB before submission)
+
+* POST /api/auth/login — authenticates and returns a JWT
+
+* At least one protected route that requires a valid JWT to access
+
+* JWT middleware validates the token on every protected request and used by controllers
+
+server.js = what -> 
+app.js = how (orchestrates our routes) -> 
+routes -> 
+middleware = (is it valid) -> 
+controllers (logic) -> 
+data -> 
+response 
+
+Separation of concerns:
+
+- Controllers/authController
+-middleware/validateAuth
+-utils/generateToken
+-routes/authRoutes
+
+
+Documentation & structure
+* README explains: system purpose, intended users, backend structure,
+ and security decisions (hashing, JWT flow, validation, HTTPS — why it was used specifically in
+ the context of our app, not just what it is)
+* Clean separation of routes/controllers/models/routes/middleware etc (not all logic dumped in server.js)
+
+
+Testing & evidence
+* Postman collection covering successful register, successful login, and invalid scenarios 
+(duplicate user, wrong password, missing fields, password restrictions, valid email addresses etc)
+* Screenshots of API responses
+* Demo video showing the API running, a successful registration, and login with token generation
+
+GitHub
+* Regular, well-labelled commits (rubric rewards 25+ commits with clear messages for Part 1)
+* README.md properly formatted in 
+
+Stage 3: registration and login logic — that's where bcrypt, JWT, and validation actually come in.
