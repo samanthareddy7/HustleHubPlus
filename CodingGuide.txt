@@ -25,6 +25,14 @@ OVERALL CHECKLIST FOR PART 1:
 | 17. Demo video             |           ZAHRAA.               |                       |
 ----------------------------------------------------------------------------------------
 
+
+*NB*
+When setting up the project use .env.example as a guide and copy 
+into your own local .env file to add your own values in
+
+- make sure to add in your own ssl certificate (follow steps on repo)
+
+
 Tech Stack (MERN): 
 
 M = MongoDB  (database)

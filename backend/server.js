@@ -15,26 +15,11 @@ const httpsOptions = require("./config/httpsConfig");
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 const APP_NAME = process.env.APP_NAME || "HustleHub+";
 
-
-const express = require('express');
-const helmet = require('helmet');
-const cors = require('cors');
-
-// Security headers
-app.use(helmet());
-
-// Controlled cross-origin access (frontend will run on a different port in Part 2)
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true
-}));
-
-
 const server = https.createServer(httpsOptions, app);
 
-
 server.listen(HTTPS_PORT, () => {
-  console.log("HustleHub+ API running on port ${HTTPS_PORT}");
+  console.log(`${APP_NAME} is running securely on https://localhost:${HTTPS_PORT}`
+  );
 });
 
 server.on("error", error => {
