@@ -23,9 +23,6 @@ app.use(cors({
 app.use(express.json());
 
 // Simple health check route so we can confirm the server is alive
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'HustleHub+ API is running' });
-});
 
 // Centralised error handler — must not leak stack traces or internal details
 app.use((err, req, res, next) => {
