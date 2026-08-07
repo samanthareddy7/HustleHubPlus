@@ -7,4 +7,5 @@ npm-debug.log
 backend/certificates/
 
 frontend/node_modules/
-frontend/.envapi/node_modules/
+frontend/.env
+api/node_modules/
