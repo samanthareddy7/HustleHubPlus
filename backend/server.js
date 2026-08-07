@@ -1,4 +1,9 @@
 require('dotenv').config();
+
+const https = require("https")
+
+const httpsOptions = require("./config/httpsConfig");
+
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -30,8 +35,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
+const APP_NAME = process.env.APP_NAME || "HustleHub+"
 
-app.listen(PORT, () => {
-  console.log(`HustleHub+ API running on port ${PORT}`);
+
+const server = https.createServer(httpsOptions, app);
+
+
+app.listen(HTTPS_PORT, () => {
+  console.log(`HustleHub+ API running on port ${HTTPS_PORT}`);
 });
