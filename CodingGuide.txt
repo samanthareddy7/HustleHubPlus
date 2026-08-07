@@ -5,24 +5,24 @@ OVERALL CHECKLIST FOR PART 1:
 |     ITEM                   |           TEAM MEMBER           |    COMPLETED          |
 ----------------------------------------------------------------------------------------
 | 1. Build Express server    |           Samantha              |    ✅✅✅✅✅✅✅       |
-| 2. Create User Model       |           TEAM MEMBER           |                       |
-| 3. Registration API        |           TEAM MEMBER           |                       |
-| 4. Password hashing        |                                 |                       |
+| 2. Create User Model       |           SAMANTHA/ZAHRAA       |                       |
+| 3. Registration API        |           SAMANTHA/ZAHRAA       |                       |
+| 4. Password hashing        |           SAMANTHA/ZAHRAA       |                       |
 |  (bcrypt)|                 |                                 |                       |
-| 5. Login API               |           TEAM MEMBER           |                       |
-| 6. Database(MongoDB)       |           TEAM MEMBER           |                       |
-| 7. JWT generation          |           TEAM MEMBER           |                       |
-| 8. JWT middleware          |           TEAM MEMBER           |                       |
-| 9. Protected route         |           TEAM MEMBER           |                       |
-| 10. Input validation       |           TEAM MEMBER           |                       |
-| 11. Secure error handling  |           TEAM MEMBER           |                       |
-| 12. HTTPS certificates.    |           TEAM MEMBER           |                       |
-| 13. Architecture diagram(. |                                 |                       |
+| 5. Login API               |           SAMANTHA/ZAHRAA       |                       |
+| 6. Database(MongoDB)       |           SAMANTHA/ZAHRAA       |                       |
+| 7. JWT generation          |      MUHAMMAD & ABDULLAH        |                       |
+| 8. JWT middleware          |      MUHAMMAD & ABDULLAH        |                       |
+| 9. Protected route         |      MUHAMMAD & ABDULLAH        |                       |
+| 10. Input validation       |      MUHAMMAD & ABDULLAH        |                       |
+| 11. Secure error handling  |      MUHAMMAD & ABDULLAH        |                       |
+| 12. HTTPS certificates.    |      MUHAMMAD & ABDULLAH        |                       |
+| 13. Architecture diagram(. |           SAMANTHA.             |                       |
     MERN)                    |                                 |                       |
-| 14. README                 |           TEAM MEMBER           |                       |
-| 15. Postman collection     |           TEAM MEMBER           |                       |
-| 16. Screenshots            |           TEAM MEMBER           |                       |
-| 17. Demo video             |           TEAM MEMBER           |                       |
+| 14. README                 |           SAMANTHA/ZAHRAA       |                       |
+| 15. Postman collection     |           SAMANTHA/ZAHRAA       |                       |
+| 16. Screenshots            |           SAMANTHA.             |                       |
+| 17. Demo video             |           ZAHRAA.               |                       |
 ----------------------------------------------------------------------------------------
 
 Tech Stack (MERN): 
