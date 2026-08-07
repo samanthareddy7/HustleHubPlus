@@ -2,7 +2,7 @@ const { application } = require('express');
 
 
 const getRoot = (req, res) => {
-    const appName = process.env.APP_NAME || 'HustleHub+ API';
+    const appName = process.env.APP_NAME || "HustleHub+ API";
 
     return res.status(200).json({
         application : appName,
@@ -11,7 +11,7 @@ const getRoot = (req, res) => {
 };
 
 const getAbout = (req,res) => {
-    const appName = process.env.APP_NAME || 'HustleHub+ API';
+    const appName = process.env.APP_NAME || "HustleHub+ API";
 
     return res.status(200).json({
         application : appName,
@@ -20,12 +20,12 @@ const getAbout = (req,res) => {
 };
 const getHealth = (req, res) => {
     
-    const appName = process.env.APP_NAME || 'HustleHub+ API';
+    const appName = process.env.APP_NAME || "HustleHub+ API";
 
     res.status(200).json({ 
         application : appName,
-        status: 'ok', 
-        message: 'HustleHub+ API is running',
+        status: "ok", 
+        message: "HustleHub+ API is running",
         protocol: "HTTPS",
         timestamp: new Date().toISOString
     });

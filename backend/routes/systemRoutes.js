@@ -4,7 +4,7 @@ const{
     getRoot,
     getAbout,
     getHealth
-} = require ("../controller/systemController")
+} = require ("../controllers/systemController")
 
 const router = express.Router();
 
