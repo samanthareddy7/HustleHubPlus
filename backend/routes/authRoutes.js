@@ -1,15 +1,15 @@
 const express = require("express");
 
-const{
+const {
     login,
-    register,
-    getProfile
-} = require ("../controllers/authController")
+    register
+} = require("../controllers/authController");
 
 const router = express.Router();
 
-//router.post("/login", login)
-//router.post("/register", register)
-//router.post("/profile", getProfile)
+router.post("/register", register);
+router.post("/login", login);
 
-module.exports = router
+// profile route is added once JWT middleware protects it — Muhammad & Abdullah
+
+module.exports = router;
