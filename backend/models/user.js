@@ -1,36 +1,38 @@
-const crypto = require("crypto");
-const users = require("../data/users");
+const mongoose = require("mongoose");
 
-const createUser = ({ name, email, passwordHash, role }) => {
-  const newUser = {
-    id: crypto.randomUUID(),
-    name,
-    email: email.toLowerCase(),
-    passwordHash,
-    role: role || "client",
-    createdAt: new Date().toISOString()
-  };
+const userSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    passwordHash: { type: String, required: true },
+    role: { type: String, enum: ["client", "freelancer", "admin"], default: "client" }
+  },
+  { timestamps: true }
+);
 
-  users.push(newUser);
-  return newUser;
+const User = mongoose.model("User", userSchema);
+
+const createUser = async ({ name, email, passwordHash, role }) => {
+  return User.create({ name, email, passwordHash, role });
 };
 
-const findUserByEmail = (email) => {
-  if (!email) return undefined;
-  return users.find((user) => user.email === email.toLowerCase());
+const findUserByEmail = async (email) => {
+  if (!email) return null;
+  return User.findOne({ email: email.toLowerCase() });
 };
 
-const findUserById = (id) => {
-  return users.find((user) => user.id === id);
+const findUserById = async (id) => {
+  return User.findById(id);
 };
 
-// Strips the password hash before a user object is ever sent to the client
 const toSafeUser = (user) => {
-  const { passwordHash, ...safeUser } = user;
+  const userObject = user.toObject ? user.toObject() : user;
+  const { passwordHash, __v, ...safeUser } = userObject;
   return safeUser;
 };
 
 module.exports = {
+  User,
   createUser,
   findUserByEmail,
   findUserById,

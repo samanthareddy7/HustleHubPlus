@@ -15,7 +15,7 @@ const register = async (req, res, next) => {
       throw error;
     }
 
-    const existingUser = findUserByEmail(email);
+    const existingUser = await findUserByEmail(email);
     if (existingUser) {
       const error = new Error("An account with this email already exists");
       error.statusCode = 409;
@@ -23,7 +23,7 @@ const register = async (req, res, next) => {
     }
 
     const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
-    const newUser = createUser({ name, email, passwordHash, role });
+    const newUser = await createUser({ name, email, passwordHash, role });
 
     return res.status(201).json({
       message: "User registered successfully",
@@ -44,7 +44,7 @@ const login = async (req, res, next) => {
       throw error;
     }
 
-    const user = findUserByEmail(email);
+    const user = await findUserByEmail(email);
     if (!user) {
       const error = new Error("Invalid email or password");
       error.statusCode = 401;
