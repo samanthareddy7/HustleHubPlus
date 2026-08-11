@@ -1,52 +1,48 @@
 
 OVERALL CHECKLIST FOR PART 1: 
 
-----------------------------------------------------------------------------------------
-|     ITEM                   |           TEAM MEMBER           |    COMPLETED          |
-----------------------------------------------------------------------------------------
-| 1. Build Express server    |           Samantha              |    ✅✅✅✅✅✅✅       |
-----------------------------------------------------------------------------------------
-| 2. Create User Model       |           SAMANTHA/ZAHRAA       |                       |
-----------------------------------------------------------------------------------------
-| 3. Registration API        |           SAMANTHA/ZAHRAA       |                       |
-----------------------------------------------------------------------------------------
-| 4. Password hashing        |           SAMANTHA/ZAHRAA       |                       |
-|  (bcrypt)|                 |                                 |                       |
-----------------------------------------------------------------------------------------
-| 5. Login API               |           SAMANTHA/ZAHRAA       |                       |
-----------------------------------------------------------------------------------------
-| 6. Database(MongoDB)       |           SAMANTHA/ZAHRAA       |                       |
-----------------------------------------------------------------------------------------
-| 7. JWT generation          |      MUHAMMAD & ABDULLAH        |                       |
-----------------------------------------------------------------------------------------
-| 8. JWT middleware          |      MUHAMMAD & ABDULLAH        |                       |
-----------------------------------------------------------------------------------------
-| 9. Protected route         |      MUHAMMAD & ABDULLAH        |                       |
-----------------------------------------------------------------------------------------
-| 10. Input validation       |      MUHAMMAD & ABDULLAH        |                       |
-----------------------------------------------------------------------------------------
-| 11. Secure error handling  |      MUHAMMAD & ABDULLAH        |                       |
-----------------------------------------------------------------------------------------
-| 12. HTTPS certificates.    |      MUHAMMAD & ABDULLAH        |                       |
-----------------------------------------------------------------------------------------
-| 13. Architecture diagram(. |           SAMANTHA.             |                       |
-    MERN)                    |                                 |                       |
-----------------------------------------------------------------------------------------
-| 14. README                 |           SAMANTHA/ZAHRAA       |                       |
-----------------------------------------------------------------------------------------
-| 15. Postman collection     |           SAMANTHA/ZAHRAA       |                       |
-----------------------------------------------------------------------------------------
-| 16. Screenshots            |           SAMANTHA.             |                       |
-----------------------------------------------------------------------------------------
-| 17. Demo video             |           ZAHRAA.               |                       |
-----------------------------------------------------------------------------------------
+================================================================================
+                       PROJECT TASK ALLOCATION TRACKER
+================================================================================
+
+ #   | Task Description                                   | Owner                | Status
+-----+----------------------------------------------------+----------------------+-------------
+ 1   | Build Express Server                               | Samantha             | ✅ Completed
+ 2   | Helmet, CORS and set up app.js                      | Zahraa               | ✅ Completed
+ 3   | HTTPS Configuration & Certificates                 | Zahraa               | ✅ Completed
+ 4   | System Controller                                  | Zahraa               | ✅ Completed
+ 5   | System Routes                                      | Zahraa               | ✅ Completed
+ 6   | Mongo DB                                           | Samantha             | ✅ Completed
+ 7   | Create User Model                                  | Samantha             | ✅ Completed
+ 8   | Registration API                                   | Samantha             | ✅ Completed
+ 9   | Password Hashing (bcrypt)                          | Samantha             | ✅ Completed
+10   | Login API                                          | Samantha             | ✅ Completed
+11   | JWT Generation                                     | Samantha             | ✅ Completed
+12   | JWT Middleware                                     | Samantha             | ⏳ In Progress
+13   | Protected Routes                                   | Muhammad & Abdullah  | ⏳ Pending
+14   | Input Validation                                   | Muhammad & Abdullah  | ⏳ Pending
+15   | Complete Error Handling Integration                | Muhammad & Abdullah  | ⏳ Pending
+16   | Final Security Review & Authentication Integration | Muhammad & Abdullah  | ⏳ Pending
+17   | Architecture Diagram                               | Samantha             | ⏳ Pending
+18   | README                                             | Samantha & Zahraa    | ⏳ Pending
+19   | Postman Collection                                 | Samantha & Zahraa    | ⏳ Pending
+20   | Screenshots                                        | Samantha             | ⏳ Pending
+21   | Demo Video                                         | Zahraa               | ⏳ Pending
+22   | Referencing (including code attribution)           | Everyone             | ⏳ Pending
+23   | validateAuth                                       | Samantha             | ⏳ Pending
 
 
-*NB*
-When setting up the project use .env.example as a guide and copy 
-into your own local .env file to add your own values in
 
-- make sure to add in your own ssl certificate (follow steps on repo)
+*NB* NOTES BEFORE PUSHING
+- When setting up the project use .env.example as a guide and copy  into your own local .env file to add your own values. 
+DO NOT PUSH .env TO GITHUB 
+
+
+- make sure to add in your own ssl certificate (follow steps on repo) (needed to access https port)
+
+- Add your own IP Address to MongoDB in order to use the databse otherwise it will not work
+
+- Work off your own branch (ValidationFeatures) and it will be reviewed and merged at a later stage
 
 
 Tech Stack (MERN): 
