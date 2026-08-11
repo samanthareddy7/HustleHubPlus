@@ -22,3 +22,13 @@ const registerValidationRules = [
     .isIn(["client", "freelancer", "admin"]).withMessage("Role must be client, freelancer, or admin")
 ];
 
+const loginValidationRules = [
+  body("email")
+    .trim()
+    .notEmpty().withMessage("Email is required")
+    .isEmail().withMessage("A valid email address is required")
+    .normalizeEmail(),
+
+  body("password")
+    .notEmpty().withMessage("Password is required")
+];
