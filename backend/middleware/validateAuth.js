@@ -1,0 +1,23 @@
+const { body, validationResult } = require("express-validator");
+
+const registerValidationRules = [
+  body("name")
+    .trim()
+    .notEmpty().withMessage("Name is required")
+    .isLength({ min: 2, max: 100 }).withMessage("Name must be between 2 and 100 characters"),
+
+  body("email")
+    .trim()
+    .notEmpty().withMessage("Email is required")
+    .isEmail().withMessage("A valid email address is required")
+    .normalizeEmail(),
+
+  body("password")
+    .notEmpty().withMessage("Password is required")
+    .isLength({ min: 8 }).withMessage("Password must be at least 8 characters")
+    .matches(/\d/).withMessage("Password must contain at least one number"),
+
+  body("role")
+    .optional()
+    .isIn(["client", "freelancer", "admin"]).withMessage("Role must be client, freelancer, or admin")
+];
