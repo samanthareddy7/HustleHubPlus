@@ -21,3 +21,4 @@ const registerValidationRules = [
     .optional()
     .isIn(["client", "freelancer", "admin"]).withMessage("Role must be client, freelancer, or admin")
 ];
+

@@ -29,7 +29,7 @@ OVERALL CHECKLIST FOR PART 1:
 20   | Screenshots                                        | Samantha             | ⏳ Pending
 21   | Demo Video                                         | Zahraa               | ⏳ Pending
 22   | Referencing (including code attribution)           | Everyone             | ⏳ Pending
-23   | validateAuth                                       | Samantha             | ⏳ Pending
+23   | validateAuth                                       | Samantha             | ✅ Completed
 
 
 
