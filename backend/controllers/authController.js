@@ -1,6 +1,11 @@
 const bcrypt = require("bcrypt");
 
-const { createUser, findUserByEmail, toSafeUser } = require("../models/user");
+const {
+  createUser,
+  findUserByEmail,
+  findUserById,
+  toSafeUser
+} = require("../models/user");
 const generateToken = require("../utils/generateToken");
 
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS, 10) || 12;
@@ -70,7 +75,27 @@ const login = async (req, res, next) => {
   }
 };
 
+const getProfile = async (req, res, next) => {
+  try {
+    const user = await findUserById(req.user.id);
+
+    if (!user) {
+      const error = new Error("User account not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    return res.status(200).json({
+      message: "Profile retrieved successfully",
+      user: toSafeUser(user)
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   register,
-  login
+  login,
+  getProfile
 };

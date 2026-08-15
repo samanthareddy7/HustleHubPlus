@@ -2,7 +2,8 @@ const express = require("express");
 
 const {
   login,
-  register
+  register,
+  getProfile
 } = require("../controllers/authController");
 
 const {
@@ -10,6 +11,8 @@ const {
   loginValidationRules,
   handleValidationErrors
 } = require("../middleware/validateAuth");
+
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -27,6 +30,11 @@ router.post(
   login
 );
 
-// Protected routes are added here [Muhammad & Abdullah]
+router.get(
+  "/profile",
+  authMiddleware,
+  getProfile
+);
 
 module.exports = router;
+
