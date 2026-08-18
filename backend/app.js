@@ -22,13 +22,13 @@ app.use(helmet({
         directives:{
             defaultSrc:["'self'"],
             scriptSrc: ["'self'"],
-            imgSrc:["'self'","'data'"],
+            imgSrc: ["'self'", "data:"],
             fontSrc:["'self'"],
-            connectSrc: ["'self"],
+            connectSrc: ["'self'"],
             objectSrc: ["'none'"],
             frameAncestors: ["'none'"],
-            baseUrl: ["'none'"],
-            fromAction: ["'self'"],
+            baseUri: ["'none'"],
+            formAction: ["'self'"],
         }
     }
 }));
