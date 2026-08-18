@@ -25,6 +25,17 @@ const findUserById = async (id) => {
   return User.findById(id);
 };
 
+const updateUserName = async (id, name) => {
+  return User.findByIdAndUpdate(
+    id,
+    { name },
+    {
+      new: true,
+      runValidators: true
+    }
+  );
+};
+
 const toSafeUser = (user) => {
   const userObject = user.toObject ? user.toObject() : user;
   const { passwordHash, __v, ...safeUser } = userObject;
@@ -36,5 +47,6 @@ module.exports = {
   createUser,
   findUserByEmail,
   findUserById,
+  updateUserName,
   toSafeUser
 };

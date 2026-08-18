@@ -4,6 +4,7 @@ const {
   createUser,
   findUserByEmail,
   findUserById,
+  updateUserName,
   toSafeUser
 } = require("../models/user");
 const generateToken = require("../utils/generateToken");
@@ -94,8 +95,30 @@ const getProfile = async (req, res, next) => {
   }
 };
 
+const updateProfile = async (req, res, next) => {
+  try {
+    const { name } = req.body;
+
+    const updatedUser = await updateUserName(req.user.id, name);
+
+    if (!updatedUser) {
+      const error = new Error("User account not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    return res.status(200).json({
+      message: "Profile updated successfully",
+      user: toSafeUser(updatedUser)
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   register,
   login,
-  getProfile
+  getProfile,
+  updateProfile
 };

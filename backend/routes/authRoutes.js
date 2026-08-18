@@ -3,12 +3,14 @@ const express = require("express");
 const {
   login,
   register,
-  getProfile
+  getProfile,
+  updateProfile
 } = require("../controllers/authController");
 
 const {
   registerValidationRules,
   loginValidationRules,
+  updateProfileValidationRules,
   handleValidationErrors
 } = require("../middleware/validateAuth");
 
@@ -34,6 +36,14 @@ router.get(
   "/profile",
   authMiddleware,
   getProfile
+);
+
+router.patch(
+  "/profile",
+  authMiddleware,
+  updateProfileValidationRules,
+  handleValidationErrors,
+  updateProfile
 );
 
 module.exports = router;
