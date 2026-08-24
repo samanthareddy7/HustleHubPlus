@@ -2,14 +2,19 @@ const express = require("express");
 
 const {
   login,
-  register
+  register,
+  getProfile,
+  updateProfile
 } = require("../controllers/authController");
 
 const {
   registerValidationRules,
   loginValidationRules,
+  updateProfileValidationRules,
   handleValidationErrors
 } = require("../middleware/validateAuth");
+
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -27,6 +32,19 @@ router.post(
   login
 );
 
-// Protected routes are added here [Muhammad & Abdullah]
+router.get(
+  "/profile",
+  authMiddleware,
+  getProfile
+);
+
+router.patch(
+  "/profile",
+  authMiddleware,
+  updateProfileValidationRules,
+  handleValidationErrors,
+  updateProfile
+);
 
 module.exports = router;
+

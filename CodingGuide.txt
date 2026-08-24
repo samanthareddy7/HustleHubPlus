@@ -18,7 +18,7 @@ OVERALL CHECKLIST FOR PART 1:
  9   | Password Hashing (bcrypt)                          | Samantha             | ✅ Completed
 10   | Login API                                          | Samantha             | ✅ Completed
 11   | JWT Generation                                     | Samantha             | ✅ Completed
-12   | JWT Middleware                                     | Samantha             | ⏳ In Progress
+12   | JWT Middleware                                     | Samantha             | ✅ Completed
 13   | Protected Routes                                   | Muhammad & Abdullah  | ⏳ Pending
 14   | Input Validation                                   | Muhammad & Abdullah  | ⏳ Pending
 15   | Complete Error Handling Integration                | Muhammad & Abdullah  | ⏳ Pending
