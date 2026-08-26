@@ -1,3 +1,14 @@
+/*
+Author: GeeksforGeeks
+Date Accessed: 26 August 2026
+Link: https://www.geeksforgeeks.org/node-js/explain-error-handling-in-express-js-using-an-example/
+Reason: Used for separate error handling class
+*/
+
+//handles unexpected errors passed through Express
+//skips normal middleware and then looks for a function with four aprameters including err
+//sends a response
+
 const errorHandler = (err, req, res, next) => {
     let statusCode = err.statusCode || err.status || 500;
     let message = err.message || "An unexpected error occurred";

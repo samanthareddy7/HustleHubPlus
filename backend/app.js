@@ -1,10 +1,25 @@
+
+
+/*
+Author: Helmet.js
+Date Accessed: 26 August 2026
+Link: https://helmet.js.org/#get-started
+Reason: Configuring helmet for security
+*/
+
+/*
+Author: Express.js
+Date Accessed: 26 August 2026
+Link: https://expressjs.com/en/resources/middleware/cors/
+Reason: Used for configuring CORS for response headers
+*/
 const express = require("express");
 
 const helmet = require("helmet");
 const cors = require("cors");
 
 
-//add rooutes 
+//add routes 
 const systemRoutes = require("./routes/systemRoutes");
 const authRoutes = require("./routes/authRoutes");
 

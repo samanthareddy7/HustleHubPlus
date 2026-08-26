@@ -1,3 +1,10 @@
+/*
+Author: Express.js
+Date Accessed: 26 August 2026
+Link: https://expressjs.com/en/guide/routing/ 
+Reason: Used official documentation to add routing for server adn api endpoints
+*/
+
 const express = require("express");
 
 const {
