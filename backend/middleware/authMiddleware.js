@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// Middleware that verifies the JWT Bearer token, rejects missing, malformed, invalid
+// or expired tokens with 401 and attaches the decoded user payload to req.user for protected routes.
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 

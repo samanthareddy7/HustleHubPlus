@@ -1,3 +1,4 @@
+// Imports bcrypt for securely hashing and comparing user passwords.
 const bcrypt = require("bcrypt");
 
 const {
@@ -7,6 +8,8 @@ const {
   updateUserName,
   toSafeUser
 } = require("../models/user");
+
+// Imports the function used to generate JWT authentication tokens.
 const generateToken = require("../utils/generateToken");
 
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS, 10) || 12;
@@ -40,6 +43,7 @@ const register = async (req, res, next) => {
   }
 };
 
+// Authenticates a user by verifying their password and generating a JWT token on successful login.
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -76,6 +80,7 @@ const login = async (req, res, next) => {
   }
 };
 
+// Retrieves the authenticated user's profile using their verified JWT user ID.
 const getProfile = async (req, res, next) => {
   try {
     const user = await findUserById(req.user.id);
@@ -95,6 +100,7 @@ const getProfile = async (req, res, next) => {
   }
 };
 
+// Updates the authenticated user's name using the user ID from their verified JWT.
 const updateProfile = async (req, res, next) => {
   try {
     const { name } = req.body;
