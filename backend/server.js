@@ -1,3 +1,10 @@
+/*
+Author: dotenv
+Date Accessed: 30 August 2026
+Link: https://www.npmjs.com/package/dotenv
+Reason: Used to load environment variables from the .env file into process.env for application configuration.
+*/
+
 //load .env variables
 const dotenv = require("dotenv")
 dotenv.config();

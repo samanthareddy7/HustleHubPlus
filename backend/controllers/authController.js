@@ -1,3 +1,24 @@
+/*
+Author: bcrypt npm package documentation
+Date Accessed: 30 August 2026
+Link: https://www.npmjs.com/package/bcrypt
+Reason: Used to implement secure password hashing during user registration and password comparison during user login.
+*/
+
+/*
+Author: Express.js
+Date Accessed: 30 August 2026
+Link: https://expressjs.com/en/guide/error-handling.html
+Reason: Used to implement asynchronous error handling in Express route handlers with try/catch and next(err).
+*/
+
+/*
+Author: shubham
+Date Accessed: 30 August 2026
+Link: https://medium.com/@s35919223/middleware-in-express-js-the-complete-deep-dive-c36c632d7824
+Reason: Used to understand and implement Express.js middleware using req, res and next(), including authentication middleware that validates requests before allowing access to protected routes.
+*/
+
 // Imports bcrypt for securely hashing and comparing user passwords.
 const bcrypt = require("bcrypt");
 

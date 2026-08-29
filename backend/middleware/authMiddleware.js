@@ -1,3 +1,9 @@
+/*
+Author: Stack Overflow
+Date Accessed: 30 August 2026
+Link: https://stackoverflow.com/questions/31309759/what-is-secret-key-for-jwt-based-authentication-and-how-to-generate-it
+Reason: Used to understand the purpose of the JWT secret key for signing and verifying tokens and keeping the secret securely stored on the server.
+*/
 const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;

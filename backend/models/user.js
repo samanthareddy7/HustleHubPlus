@@ -1,3 +1,10 @@
+/*
+Author: Mongoose
+Date Accessed: 30 August 2026
+Link: https://mongoosejs.com/docs/guide.html
+Reason: Used to implement the MongoDB user model using Mongoose schemas, models and timestamps.
+*/
+
 const mongoose = require("mongoose");
 
 // Imports Mongoose to define the user schema and interact with MongoDB.

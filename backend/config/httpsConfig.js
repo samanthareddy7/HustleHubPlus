@@ -1,4 +1,11 @@
-//reader orivate key and certificates for the https server
+/*
+Author: Node.js
+Date Accessed: 30 August 2026
+Link: https://nodejs.org/api/fs.html
+Reason: Used to read the HTTPS private key and certificate files from the filesystem.
+*/
+
+//reader private key and certificates for the https server
 const fs = require("fs")
 //path module create reliable file paths 
 const path = require("path")
