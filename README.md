@@ -127,7 +127,7 @@ Stateless tokens avoid session storage overhead on the server. Claims inside the
 
 **Node.js:** v18.x or v20+ LTS
 
-**MongoDB Community Server:** Running locally on port 27017
+**MongoDB Atlas:** 
 
 **OpenSSL:** Standard terminal utility
 
