@@ -1,3 +1,18 @@
+/*
+Author: express-validator
+Date Accessed: 15 August 2026
+Link: https://express-validator.github.io/docs/api/validation-chain/
+Reason: Used to validate and check user input before it is processed by the application.
+*/
+
+/*
+Author: MDN Web Docs
+Date Accessed: 15 August 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Character_classes
+Reason: Used to create the regular expression checks for password strength and valid name input.
+*/
+
+
 const { body, validationResult } = require("express-validator");
 
 //validation rules for usernames
