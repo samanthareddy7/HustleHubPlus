@@ -135,11 +135,11 @@ Stateless tokens avoid session storage overhead on the server. Claims inside the
 
 Clone the repository and install backend dependencies:
 ````
-git clone https://github.com/hustlehub-plus.git
+git clone https://github.com/samanthareddy7/HustleHubPlus.git
 ````
 
 ```
-cd hustlehub-plus/backend
+cd HustleHubPlus/backend
 ```
 ```
 npm install
@@ -149,18 +149,25 @@ npm install
 Run the following command in Git Bash or Terminal inside the backend folder:
 
 ```
-mkdir -p certs
-openssl req -x509 -newkey rsa:2048 -nodes -keyout certs/key.pem -out certs/cert.pem -days 365 -subj "/CN=localhost"
+mkdir certificates
+cd certificates
+openssl req -x509 -newkey rsa:2048 -keyout privatekey.pem -out certificate.pem -days 365 -nodes -subj "/CN=localhost"
 ```
 
 **4. Environment Configuration**
 Create a .env file inside the backend directory based on .env.example:
 
 ```
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/hustlehub_plus
-JWT_SECRET=hustlehub_super_secret_jwt_key_2026
+HTTPS_PORT=4000
+APP_NAME=HustleHubPlus
+ENVIRONMENT_MODE=development
+SSL_KEY_PATH=certificates/privatekey.pem
+SSL_CERT_PATH=certificates/certificate.pem
+CLIENT_ORIGIN=https://localhost:5173
+JWT_SECRET=secret key
+JWT_EXPIRES_IN=1h
 BCRYPT_ROUNDS=12
+MONGO_URI=<your MongoDB Atlas connection string>
 ```
 
 **5. Running the Application**
