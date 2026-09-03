@@ -4,6 +4,8 @@
 HustleHub+ is a secure, full-stack freelance marketplace built on the MERN stack (MongoDB, Express.js, React.js, and Node.js) that connects clients with skilled freelancers for browsing and booking specialized service gigs. The platform also integrates automated financial management tools that track client bookings, calculate freelancer gross earnings and estimate tax liabilities. Designed with security from the start, HustleHub+ protects sensitive identity and transactional data using end-to-end HTTPS encryption, bcrypt password hashing, stateless JSON Web Token (JWT) authentication, strict Role-Based Access Control, and  validation middleware to help defend against web vulnerabilities like NoSQL injection and XSS.
 </p>
 
+You can watch the demo for Part 1 here: https://youtu.be/oPwIyylQsJY 
+
 <img width="450" height="1200" alt="securitydiagram2" src="https://github.com/user-attachments/assets/04ccd74f-6aa8-4c1e-80c7-3eece8795e76" />
 
 
