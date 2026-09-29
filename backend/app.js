@@ -17,6 +17,9 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 
+ //import the general apilimiter
+const apiLimiter = require("./middleware/rateLimiters")
+
 
 //add routes 
 const systemRoutes = require("./routes/systemRoutes");
@@ -25,6 +28,7 @@ const authRoutes = require("./routes/authRoutes");
 //import middleware/ error handling
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
+const { apiLimiter } = require("./middleware/rateLimiters");
 
 const app = express()
 
@@ -79,6 +83,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+app.use(apiLimiter)
 
 app.use("/", systemRoutes);
 

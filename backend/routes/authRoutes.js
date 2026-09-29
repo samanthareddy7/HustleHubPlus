@@ -22,11 +22,13 @@ const {
 } = require("../middleware/validateAuth");
 
 const authMiddleware = require("../middleware/authMiddleware");
+const {authLimiter} = reyqure('../middleware/ratelimiters')
 
 const router = express.Router();
 
 router.post(
   "/register",
+  authLimiter,
   registerValidationRules,
   handleValidationErrors,
   register
@@ -34,6 +36,7 @@ router.post(
 
 router.post(
   "/login",
+  authLimiter,
   loginValidationRules,
   handleValidationErrors,
   login
