@@ -42,7 +42,7 @@ const registerValidationRules = [
   //specified roles for the system
   body("role")
     .optional()
-    .isIn(["client", "freelancer", "admin"]).withMessage("Role must be client, freelancer, or admin")
+    .isIn(["client", "freelancer"]).withMessage("Role must be client or freelancer")
 ];
 
 const loginValidationRules = [

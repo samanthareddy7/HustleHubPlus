@@ -53,7 +53,8 @@ const register = async (req, res, next) => {
     }
 
     const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
-    const newUser = await createUser({ name, email, passwordHash, role });
+    const userRole = role || "client";
+    const newUser = await createUser({ name, email, passwordHash, userRole });
 
     return res.status(201).json({
       message: "User registered successfully",
