@@ -3,7 +3,33 @@
 //instead of making every conpoment independently find the backend, we store it here 
 const API_URL = import.meta.env.VITE_API_URL;
 
+//generic api request 
 
+export const apiRequest = async (path, options = {}) => {
+    const token = getToken();
+
+    const headers = {
+        'Content-Type':'application/json',
+        ...options.headers
+    };
+
+    if(token){
+        headers.Authorization = 'Bearer ${token}';
+    }
+
+    const response = await fetch('${API_URL}${path}', {
+        ...options,
+        headers
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok){
+        throw new Error(data.error || 'Request failed');
+    }
+
+    return data;
+};
 //req the health information
 //asynchronous rrquest because it is a network request
 const getHealth = async () => {
@@ -87,6 +113,9 @@ export{
     loginUser
 };
 
+//for authentication and token management 
+//jwt is stored in sessionStorage not localStorage 
+//so auth is removed when session ends
 export const getToken = () => {
     return sessionStorage.getItem('token');
 };
@@ -106,28 +135,3 @@ export const getSavedUser =() => {
     return user ? JSON.parse(user) : null;
 };
 
-export const apiRequest = async (path, options = {}) => {
-    const token = getToken();
-
-    const headers = {
-        'Content-Type':'application/json',
-        ...options.headers
-    };
-
-    if(token){
-        headers.Authorization = 'Bearer ${token';
-    }
-
-    const response = await fetch('${API_URL}${path}', {
-        ...options,
-        headers
-    });
-
-    const data = await response.json().catch(() => ({}));
-
-    if (!response.ok){
-        throw new Error(data.error || 'Request failed');
-    }
-
-    return data;
-};
