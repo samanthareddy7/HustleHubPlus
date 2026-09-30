@@ -18,7 +18,8 @@ const {
   registerValidationRules,
   loginValidationRules,
   updateProfileValidationRules,
-  handleValidationErrors
+  handleValidationErrors,
+  rejectUnexpectedFields
 } = require("../middleware/validateAuth");
 
 const authMiddleware = require("../middleware/authMiddleware");

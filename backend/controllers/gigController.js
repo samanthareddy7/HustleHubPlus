@@ -18,7 +18,7 @@ const getGigs = async (req, res, next) => {
 
 
 //gets gig by id
-const getGigById = async(res,req,next) => {
+const getGigById = async(req,res,next) => {
     try{
 
         const gig = await Gig.findOne({
@@ -64,7 +64,7 @@ const getMyGigs = async (req, res, next) => {
     }
 };
 
-const createGig = async( req, req, next) => {
+const createGig = async( req, res, next) => {
     try{
         const { title, description, category, price, isActive} = req.body;
 

@@ -17,9 +17,6 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 
- //import the general apilimiter
-const apiLimiter = require("./middleware/rateLimiters")
-
 
 //add routes 
 const systemRoutes = require("./routes/systemRoutes");

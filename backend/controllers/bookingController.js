@@ -4,7 +4,7 @@ const Transaction = require("../models/transaction");
 
 const TAX_RATE = 0.20;
 
-const createBooking = async (res, req, next) => {
+const createBooking = async (req, res, next) => {
     try{
         const  {gigId} = req.body;
 
@@ -75,7 +75,7 @@ const createBooking = async (res, req, next) => {
 };
 
 //gets clients booking
-const getMyBookings = async(res, req, next) => {
+const getMyBookings = async(req, res, next) => {
     try{
         const bookings= await Booking.find({
             client: req.user.id
@@ -93,7 +93,7 @@ const getMyBookings = async(res, req, next) => {
     }
 }
 
-const getFreelancerBookings = async(res, req, next) => {
+const getFreelancerBookings = async(req, res, next) => {
     try{
         const bookings= await Booking.find({
             freelancer: req.user.id
@@ -111,7 +111,7 @@ const getFreelancerBookings = async(res, req, next) => {
     }
 }
 
-const completeBooking = async(res, req, next) => {
+const completeBooking = async(req, res, next) => {
     try{
         const bookings= await Booking.findOneAndUpdate({
             _id: req.params.id,
