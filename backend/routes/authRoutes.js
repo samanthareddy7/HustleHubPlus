@@ -22,13 +22,14 @@ const {
 } = require("../middleware/validateAuth");
 
 const authMiddleware = require("../middleware/authMiddleware");
-const {authLimiter} = reyqure('../middleware/ratelimiters')
+const {authLimiter} = require('../middleware/rateLimiters')
 
 const router = express.Router();
 
 router.post(
   "/register",
   authLimiter,
+  rejectUnexpectedFields(["name","email", "password","role"]),
   registerValidationRules,
   handleValidationErrors,
   register

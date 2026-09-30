@@ -1,7 +1,6 @@
 
-
 //express -rate-limit = take note/record of the number of requests being sent 
-const {ratelimit} = require("express-rate-limit");
+const {rateLimit} = require("express-rate-limit");
 
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
