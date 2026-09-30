@@ -24,6 +24,9 @@ const apiLimiter = require("./middleware/rateLimiters")
 //add routes 
 const systemRoutes = require("./routes/systemRoutes");
 const authRoutes = require("./routes/authRoutes");
+const gigRoutes = require("./routes/gigRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
+const transactionRoutes = require("./routes/transactionRoutes");
 
 //import middleware/ error handling
 const notFound = require("./middleware/notFound");
@@ -89,6 +92,12 @@ app.use(apiLimiter)
 app.use("/", systemRoutes);
 
 app.use("/auth", authRoutes);
+
+app.use("/gigs", gigRoutes);
+
+app.use("/bookings", bookingRoutes);
+
+app.use("/transactions", transactionRoutes);
 
 app.use(notFound);
 
