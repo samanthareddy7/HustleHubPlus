@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getGigs, createBooking } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Gigs() {
     const [gigs, setGigs] = useState([]);
@@ -9,6 +10,7 @@ function Gigs() {
 
     const [selectedGig, setSelectedGig] = useState(null);
     const [bookingLoading, setBookingLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadGigs();
@@ -104,7 +106,6 @@ function Gigs() {
     return (
         <div className="container py-5">
 
-            {/* PAGE HEADER */}
             <div className="mb-4">
                 <h1 className="fw-bold">
                     Browse Gigs
@@ -212,6 +213,13 @@ function Gigs() {
                                         >
                                             Book Now
                                         </button>
+
+                                        <button
+                                        className="btn btn-primary"
+                                        onClick={() => navigate(`/gigs/${gig._id}`)}
+                                    >
+                                        View Details
+                                    </button>
 
                                     </div>
 

@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard"
 import Gigs from "./pages/Gigs";
 import MyGigs from "./pages/MyGigs";
 import GigForm from "./pages/GigForm";
+import GigDetails from "./pages/GigDetails";
 import MyBookings from "./pages/MyBookings";
 import FreelancerBookings from "./pages/FreelancerBookings";
 import FreelancerIncome from "./pages/FreelancerIncome";
@@ -45,6 +46,7 @@ function App() {
                      <Route path="/gigs/edit/:id" element={  <OwnerRoute allowedRole="freelancer"> <GigForm /> </OwnerRoute> } />  
                      
                      <Route path="/my-gigs" element={  <RoleRoute allowedRole="freelancer"> <MyGigs /> </RoleRoute> } />  
+                      <Route path="/gigs/:id" element={  <GigDetails /> } />  
 
                      <Route path="/my-bookings" element={ <ProtectedRoute> <MyBookings /> </ProtectedRoute> } />  
                      <Route path="/freelancer-bookings" element={  <RoleRoute allowedRole="freelancer"> <FreelancerBookings /> </RoleRoute> } />  
