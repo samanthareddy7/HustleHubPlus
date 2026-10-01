@@ -22,9 +22,54 @@ function GigForm() {
         isActive: true
     });
 
+    const [formErrors, setFormErrors] = useState({});
     const [loading, setLoading] = useState(isEditing);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
+
+
+const validateGig = () => {
+    const errors = {};
+
+    if (!formData.title.trim()) {
+        errors.title = "Gig title is required.";
+    } else if (formData.title.trim().length < 3) {
+        errors.title =
+            "Gig title must contain at least 3 characters.";
+    } else if (formData.title.length > 100) {
+        errors.title =
+            "Gig title cannot exceed 100 characters.";
+    }
+
+    if (!formData.description.trim()) {
+        errors.description =
+            "Gig description is required.";
+    } else if (formData.description.trim().length < 10) {
+        errors.description =
+            "Description must contain at least 10 characters.";
+    } else if (formData.description.length > 2000) {
+        errors.description =
+            "Description cannot exceed 2000 characters.";
+    }
+
+    if (!formData.category) {
+        errors.category =
+            "Please select a category.";
+    }
+
+    const price = Number(formData.price);
+
+    if (!formData.price) {
+        errors.price = "Price is required.";
+    } else if (Number.isNaN(price)) {
+        errors.price = "Price must be a valid number.";
+    } else if (price <= 0) {
+        errors.price =
+            "Price must be greater than R0.";
+    }
+
+    return errors;
+};
 
     useEffect(() => {
 
@@ -51,7 +96,7 @@ function GigForm() {
                 });
 
             } catch (err) {
-                setError(err.message);
+                setError( err.message || "Unable to load gig." );
             } finally {
                 setLoading(false);
             }
@@ -72,16 +117,29 @@ function GigForm() {
                 ? checked
                 : value
         }));
+
+        if (formErrors[name]) { setFormErrors((current) => ({ ...current, [name]: "" })); }
     };
 
     const handleSubmit = async (event) => {
 
         event.preventDefault();
 
+        setError("");
+
+        const validationErrors = validateGig();
+
+        if (Object.keys(validationErrors).length > 0) {
+            setFormErrors(validationErrors);
+            return;
+        }
+
+        setFormErrors({});
+
+
         try {
 
             setSaving(true);
-            setError("");
 
             const gigData = {
                 title: formData.title,
@@ -105,7 +163,10 @@ function GigForm() {
 
         } catch (err) {
 
-            setError(err.message);
+            setError(
+            err.message ||
+            "Unable to save gig."
+        );
 
         } finally {
 
@@ -177,7 +238,7 @@ function GigForm() {
 
                                     <input
                                         type="text"
-                                        className="form-control"
+                                        className={`form-control ${ formErrors.title ? "is-invalid" : "" }`}
                                         id="title"
                                         name="title"
                                         value={formData.title}
@@ -186,6 +247,8 @@ function GigForm() {
                                         maxLength="100"
                                         required
                                     />
+
+                                    {formErrors.title && ( <div className="invalid-feedback"> {formErrors.title} </div> )}
 
                                 </div>
 
@@ -199,7 +262,7 @@ function GigForm() {
                                     </label>
 
                                     <textarea
-                                        className="form-control"
+                                        className={`form-control ${ formErrors.title ? "is-invalid" : "" }`}
                                         id="description"
                                         name="description"
                                         rows="5"
@@ -209,6 +272,8 @@ function GigForm() {
                                         maxLength="2000"
                                         required
                                     />
+
+                                    {formErrors.title && ( <div className="invalid-feedback"> {formErrors.description} </div> )}
 
                                     <div className="form-text">
                                         {formData.description.length}/2000
@@ -229,7 +294,7 @@ function GigForm() {
                                         </label>
 
                                         <select
-                                            className="form-select"
+                                            className={`form-select ${ formErrors.title ? "is-invalid" : "" }`}
                                             id="category"
                                             name="category"
                                             value={formData.category}
@@ -271,6 +336,8 @@ function GigForm() {
 
                                         </select>
 
+                                        {formErrors.category && ( <div className="invalid-feedback"> {formErrors.category} </div> )}
+
                                     </div>
 
                                     <div className="col-md-6 mb-3">
@@ -284,7 +351,7 @@ function GigForm() {
 
                                         <input
                                             type="number"
-                                            className="form-control"
+                                            className={`form-control ${ formErrors.price ? "is-invalid" : "" }`}
                                             id="price"
                                             name="price"
                                             value={formData.price}
@@ -293,6 +360,8 @@ function GigForm() {
                                             step="0.01"
                                             required
                                         />
+
+                                        {formErrors.price && ( <div className="invalid-feedback"> {formErrors.price} </div> )}
 
                                     </div>
 
