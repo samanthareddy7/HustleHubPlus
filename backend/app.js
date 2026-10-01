@@ -52,7 +52,7 @@ app.use(helmet({
 }));
 
 const clientOrigin = process.env.CLIENT_ORIGIN ||
-"https://localhost:5173";
+"http://localhost:5173";
 
 const corsOptions = {
     origin : clientOrigin,

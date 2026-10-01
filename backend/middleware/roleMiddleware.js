@@ -1,5 +1,5 @@
 const requireRole = (...allowedRoles) => {
-    return(res,req,next) => {
+    return(req,res,next) => {
         if(!req.user) {
             const error = new Error(
                 "Authentication required"
