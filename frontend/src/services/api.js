@@ -122,8 +122,41 @@ const getGigs = async () => {
     return apiRequest("/gigs");
 };
 
+const getGigById = async (id) => {
+    return apiRequest(`/gigs/${id}`);
+};
+
 const getMyGigs = async () => {
     return apiRequest("/gigs/mine/list");
+};
+
+const createGig = async (gigData) => {
+    return apiRequest("/gigs", {
+        method: "POST",
+        body: JSON.stringify(gigData)
+    });
+};
+
+const updateGig = async (id, gigData) => {
+    return apiRequest(`/gigs/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(gigData)
+    });
+};
+
+const deleteGig = async (id) => {
+    return apiRequest(`/gigs/${id}`, {
+        method: "DELETE"
+    });
+};
+
+const createBooking = async (gigId) => {
+    return apiRequest("/bookings", {
+        method: "POST",
+        body: JSON.stringify({
+            gigId
+        })
+    });
 };
 
 const getMyBookings = async () => {
@@ -134,6 +167,12 @@ const getFreelancerBookings = async () => {
     return apiRequest("/bookings/freelancer");
 };
 
+
+const completeBooking = async (id) => {
+    return apiRequest(`/bookings/${id}/complete`, {
+        method: "PATCH"
+    });
+};
 const getFreelancerIncome = async () => {
     return apiRequest("/transactions/income");
 };
@@ -143,9 +182,14 @@ export{
     registerUser,
     loginUser,
     getGigs,
+    getGigById,
     getMyGigs,
+    createGig,
+    updateGig,
+    deleteGig,
     getMyBookings,
     getFreelancerBookings,
+    completeBooking,
     getFreelancerIncome
 };
 

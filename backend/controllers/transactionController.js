@@ -4,13 +4,13 @@ const Transaction =
 const getFreelancerIncome = async( req, res, next) => {
 
     try{
-    const transaction = await Transaction.find({
+    const transactions = await Transaction.find({
         freelancer: req.user.id,
         status: {$ne:"Cancelled"}
     }).populate("gig", "title category")
     .sort({createdAt: -1});
 
-    const totalIncome = transaction.reduce((total, transaction) => total + transaction.amount, 0);
+    const totalIncome = transactions.reduce((total, transaction) => total + transaction.amount, 0);
 
     const totalTax = transactions.reduce((total, transaction) => total + transaction.taxEstimated, 0);
 

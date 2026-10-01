@@ -113,7 +113,7 @@ const getFreelancerBookings = async(req, res, next) => {
 
 const completeBooking = async(req, res, next) => {
     try{
-        const bookings= await Booking.findOneAndUpdate({
+        const booking= await Booking.findOneAndUpdate({
             _id: req.params.id,
 
             freelancer: req.user.id,
