@@ -30,12 +30,12 @@ const createBooking = async (req, res, next) => {
 
         const amount = gig.price;
 
-        const taxEstinated = 
+        const taxEstimated = 
         Number(
             (amount * TAX_RATE).toFixed(2)
         );
 
-        const freelancerIncome = Number ((amount-taxEstinated).toFixed(2));
+        const freelancerIncome = Number ((amount-taxEstimated).toFixed(2));
 
         //creates a booking 
         const booking = await Booking.create({
