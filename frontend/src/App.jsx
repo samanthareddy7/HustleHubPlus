@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RoleRoute from "./components/RoleRoute";
+import OwnerRoute from "./components/OwnerRoute";
 
 import Home from "./pages/home";
 
@@ -41,7 +42,7 @@ function App() {
 
                      <Route path="/gigs/create" element={  <RoleRoute allowedRole="freelancer"> <GigForm /> </RoleRoute> } />  
                      
-                     <Route path="/gigs/edit/:id" element={  <RoleRoute allowedRole="freelancer"> <GigForm /> </RoleRoute> } />  
+                     <Route path="/gigs/edit/:id" element={  <OwnerRoute allowedRole="freelancer"> <GigForm /> </OwnerRoute> } />  
                      
                      <Route path="/my-gigs" element={  <RoleRoute allowedRole="freelancer"> <MyGigs /> </RoleRoute> } />  
 
