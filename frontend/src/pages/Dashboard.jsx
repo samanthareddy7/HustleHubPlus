@@ -290,7 +290,7 @@ function Dashboard() {
                     </Link>
 
                     <Link
-                        to="/client-bookings"
+                        to="/my-bookings"
                         className="btn btn-outline-primary"
                     >
                         My Bookings
@@ -568,7 +568,7 @@ function Dashboard() {
                 <div className="d-flex flex-wrap gap-2 mb-4">
 
                     <Link
-                        to="/create-gig"
+                        to="/gigs/create"
                         className="btn btn-primary"
                     >
                         Create New Gig
@@ -677,7 +677,7 @@ function Dashboard() {
                                 </p>
 
                                 <Link
-                                    to="/create-gig"
+                                    to="/gigs/create"
                                     className="btn btn-primary"
                                 >
                                     Create Your First Gig

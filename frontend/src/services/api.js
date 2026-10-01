@@ -187,6 +187,7 @@ export{
     createGig,
     updateGig,
     deleteGig,
+    createBooking,
     getMyBookings,
     getFreelancerBookings,
     completeBooking,

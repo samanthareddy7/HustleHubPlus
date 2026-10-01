@@ -56,7 +56,7 @@ function Navbar() {
 
                         {token && user?.role === "client" && (
                             <li className="nav-item">
-                                <Link className="nav-link" to="/client-dashboard">
+                                <Link className="nav-link" to="/dashboard">
                                     Dashboard
                                 </Link>
                             </li>
@@ -64,7 +64,7 @@ function Navbar() {
 
                         {token && user?.role === "freelancer" && (
                             <li className="nav-item">
-                                <Link className="nav-link" to="/freelancer-dashboard">
+                                <Link className="nav-link" to="/dashboard">
                                     Dashboard
                                 </Link>
                             </li>
