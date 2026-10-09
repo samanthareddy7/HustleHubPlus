@@ -30,6 +30,7 @@ const adminRoutes = require("./routes/adminRoutes");
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 const { apiLimiter } = require("./middleware/rateLimiters");
+const sanitizeInput = require("./middleware/sanitizeInput");
 
 const app = express()
 
@@ -83,9 +84,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(express.json());
+app.use(express.json({ limit: "10kb" }));
+app.use(sanitizeInput);
 
-app.use(apiLimiter)
+app.use(apiLimiter);
 
 app.use("/", systemRoutes);
 
