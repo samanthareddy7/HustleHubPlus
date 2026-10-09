@@ -27,6 +27,7 @@ export const getSavedUser =() => {
 
 //generic api request 
 
+//generic api request
 export const apiRequest = async (path, options = {}) => {
     const token = getToken();
 
@@ -40,20 +41,12 @@ export const apiRequest = async (path, options = {}) => {
     }
 
     try {
-        console.log("API REQUEST:", `${API_URL}${path}`);
-        console.log("METHOD:", options.method || "GET");
-        console.log("BODY:", options.body);
-
         const response = await fetch(`${API_URL}${path}`, {
             ...options,
             headers
         });
 
-        console.log("API STATUS:", response.status);
-
         const data = await response.json().catch(() => ({}));
-
-        console.log("API RESPONSE:", data);
 
         if (!response.ok) {
             throw new Error(
@@ -66,14 +59,11 @@ export const apiRequest = async (path, options = {}) => {
         return data;
 
     } catch (error) {
-        console.error("API REQUEST ERROR:", error);
-
         if (error instanceof TypeError) {
             throw new Error(
                 "Unable to connect to the backend. Check that the API is running and the API URL is correct."
             );
         }
-
         throw error;
     }
 };
