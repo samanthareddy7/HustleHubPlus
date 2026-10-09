@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Gig = require("../models/gigs");
 const Booking = require("../models/booking");
 const Transaction = require("../models/transaction");
@@ -5,6 +6,9 @@ const Transaction = require("../models/transaction");
 const TAX_RATE = 0.20;
 
 const createBooking = async (req, res, next) => {
+    // session lets booking + transaction succeed or fail together
+    const session = await mongoose.startSession();
+
     try{
         const  {gigId} = req.body;
 
@@ -15,42 +19,36 @@ const createBooking = async (req, res, next) => {
 
         if(!gig) {
             const error = new Error("Gig not found or no longer available");
-
             error.statusCode = 404;
             throw error;
         }
 
-        //freelancer cannot book own gig
         if(gig.freelancer.toString() === req.user.id){
             const error = new Error("You cannot book your own gig");
-
-            error.statusCode = 404;
+            error.statusCode = 403;
             throw error;
         }
 
         const amount = gig.price;
+        const taxEstimated = Number((amount * TAX_RATE).toFixed(2));
+        const freelancerIncome = Number((amount - taxEstimated).toFixed(2));
 
-        const taxEstimated = 
-        Number(
-            (amount * TAX_RATE).toFixed(2)
-        );
+        let booking;
+        let transaction;
 
-        const freelancerIncome = Number ((amount-taxEstimated).toFixed(2));
+        // if either create fails, both are rolled back
+        await session.withTransaction(async () => {
+            const [createdBooking] = await Booking.create([{
+                gig: gig._id,
+                client: req.user.id,
+                freelancer: gig.freelancer,
+                amount,
+                taxEstimated,
+                status:"Pending"
+            }], { session });
 
-        //creates a booking 
-        const booking = await Booking.create({
-            gig: gig._id,
-            client: req.user.id,
-            freelancer: gig.freelancer,
-            amount,
-            taxEstimated,
-            status:"Pending"
-        });
-
-
-        //automatically create a transaction after booking
-        const transaction = await Transaction.create({
-                booking: booking._id,
+            const [createdTransaction] = await Transaction.create([{
+                booking: createdBooking._id,
                 gig: gig._id,
                 client: req.user.id,
                 freelancer: gig.freelancer,
@@ -58,19 +56,23 @@ const createBooking = async (req, res, next) => {
                 taxEstimated,
                 freelancerIncome,
                 status: "Pending"
-            }
-        );
+            }], { session });
+
+            booking = createdBooking;
+            transaction = createdTransaction;
+        });
 
         res.status(201).json({
             message: "Booking and transaction created successfully",
             booking,
             transaction
-        })
-
-
+        });
     }
     catch(err){
-        next(err)
+        next(err);
+    }
+    finally{
+        await session.endSession();
     }
 };
 
