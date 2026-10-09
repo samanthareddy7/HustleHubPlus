@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const { bookingLimiter } = require("../middleware/rateLimiters");
+
 const authMiddleware =
     require("../middleware/authMiddleware");
 
@@ -21,9 +23,10 @@ const {
     completeBooking
 } = require("../controllers/bookingController");
 
-//client routes
+// Client routes
 router.post(
     "/",
+    bookingLimiter,
     authMiddleware,
     requireRole("client"),
     createBookingValidationRules,
