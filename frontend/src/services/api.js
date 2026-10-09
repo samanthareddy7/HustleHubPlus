@@ -166,7 +166,24 @@ const completeBooking = async (id) => {
 const getFreelancerIncome = async () => {
     return apiRequest("/transactions/income");
 };
+//admin
+const getAdminStats = async () => {
+    return apiRequest("/admin/stats");
+};
 
+const getAdminUsers = async () => {
+    return apiRequest("/admin/users");
+};
+
+const getAdminBookings = async () => {
+    return apiRequest("/admin/bookings");
+};
+
+const deactivateGig = async (id) => {
+    return apiRequest(`/admin/gigs/${id}/deactivate`, {
+        method: "PATCH"
+    });
+};
 export{
     getHealth,
     registerUser,
