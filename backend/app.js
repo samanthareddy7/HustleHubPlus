@@ -24,6 +24,7 @@ const authRoutes = require("./routes/authRoutes");
 const gigRoutes = require("./routes/gigRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 //import middleware/ error handling
 const notFound = require("./middleware/notFound");
@@ -95,6 +96,7 @@ app.use("/gigs", gigRoutes);
 app.use("/bookings", bookingRoutes);
 
 app.use("/transactions", transactionRoutes);
+app.use("/admin", adminRoutes);
 
 app.use(notFound);
 
