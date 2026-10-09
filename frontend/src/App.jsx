@@ -17,6 +17,7 @@ import GigDetails from "./pages/GigDetails";
 import MyBookings from "./pages/MyBookings";
 import FreelancerBookings from "./pages/FreelancerBookings";
 import FreelancerIncome from "./pages/FreelancerIncome";
+import AdminDashboard from "./pages/AdminDashboard";
 
 import "./App.css";
 
@@ -51,7 +52,7 @@ function App() {
                      <Route path="/my-bookings" element={ <ProtectedRoute> <MyBookings /> </ProtectedRoute> } />  
                      <Route path="/freelancer-bookings" element={  <RoleRoute allowedRole="freelancer"> <FreelancerBookings /> </RoleRoute> } />  
                      <Route path="/income" element={  <RoleRoute allowedRole="freelancer"> <FreelancerIncome /> </RoleRoute> } />  
-
+<Route path="/admin" element={ <RoleRoute allowedRole="admin"> <AdminDashboard /> </RoleRoute> } />
 
                      <Route path="*" element={ <div className="container py-5"> <h1>404</h1> <p> Page not found. </p> </div> } /> 
                 
