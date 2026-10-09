@@ -1,30 +1,38 @@
 const Transaction =
     require("../models/transaction");
 
-const getFreelancerIncome = async( req, res, next) => {
+const round = (value) => Number(value.toFixed(2));
 
-    try{
-    const transactions = await Transaction.find({
-        freelancer: req.user.id,
-        status: {$ne:"Cancelled"}
-    }).populate("gig", "title category")
-    .sort({createdAt: -1});
+const sumOf = (list, field) =>
+    round(list.reduce((total, item) => total + item[field], 0));
 
-    const totalIncome = transactions.reduce((total, transaction) => total + transaction.amount, 0);
+const getFreelancerIncome = async (req, res, next) => {
+    try {
+        const transactions = await Transaction.find({
+            freelancer: req.user.id,
+            status: { $ne: "Cancelled" }
+        }).populate("gig", "title category")
+        .sort({ createdAt: -1 });
 
-    const totalTax = transactions.reduce((total, transaction) => total + transaction.taxEstimated, 0);
+        // income is only counted once the freelancer completes the booking
+        const completed = transactions.filter((t) => t.status === "Completed");
+        const pending = transactions.filter((t) => t.status === "Pending");
 
-    const netIncome = transactions.reduce((total, transaction) => total + transaction.freelancerIncome, 0);
-
-    res.status(200).json({transactions, summary:{
-        totalIncome:Number(totalIncome.toFixed(2)),
-        estimatedTax: Number(totalTax.toFixed(2)),
-        netIncome:Number(netIncome.toFixed(2))    
-    }});
-    }catch(err){
-        next(err)
+        res.status(200).json({
+            transactions,
+            summary: {
+                totalIncome: sumOf(completed, "amount"),
+                estimatedTax: sumOf(completed, "taxEstimated"),
+                netIncome: sumOf(completed, "freelancerIncome"),
+                pendingIncome: sumOf(pending, "amount"),
+                completedCount: completed.length,
+                pendingCount: pending.length
+            }
+        });
+    } catch (err) {
+        next(err);
     }
-}
+};
 
 
 module.exports = {
