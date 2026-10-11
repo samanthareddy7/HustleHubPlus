@@ -1,0 +1,667 @@
+
+{
+  "info": {
+    "name": "HustleHub+ Complete API Testing",
+    "description": "Automated success, failure, validation, authentication and role-based security tests for the HustleHub+ backend.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "baseUrl", "value": "https://localhost:4000"},
+    {"key": "password", "value": "Testing123!"},
+    {"key": "clientEmail", "value": ""},
+    {"key": "freelancerEmail", "value": ""},
+    {"key": "secondFreelancerEmail", "value": ""},
+    {"key": "clientToken", "value": ""},
+    {"key": "freelancerToken", "value": ""},
+    {"key": "secondFreelancerToken", "value": ""},
+    {"key": "adminToken", "value": ""},
+    {"key": "gigId", "value": ""},
+    {"key": "bookingId", "value": ""},
+    {"key": "missingId", "value": "000000000000000000000000"}
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const name = pm.info.requestName;",
+          "if (name.startsWith('01 ')) {",
+          "  pm.collectionVariables.set('clientEmail', 'client' + Date.now() + '@example.com');",
+          "  pm.collectionVariables.unset('clientToken');",
+          "}",
+          "if (name.startsWith('02 ')) {",
+          "  pm.collectionVariables.set('freelancerEmail', 'freelancer' + Date.now() + '@example.com');",
+          "  pm.collectionVariables.unset('freelancerToken');",
+          "}",
+          "if (name.startsWith('03 ')) {",
+          "  pm.collectionVariables.set('secondFreelancerEmail', 'secondfreelancer' + Date.now() + '@example.com');",
+          "  pm.collectionVariables.unset('secondFreelancerToken');",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const name = pm.info.requestName;",
+          "const statusMatch = name.match(/\\[(\\d{3})\\]$/);",
+          "if (statusMatch) {",
+          "  pm.test('Expected HTTP status ' + statusMatch[1], function () {",
+          "    pm.response.to.have.status(Number(statusMatch[1]));",
+          "  });",
+          "}",
+          "pm.test('Response contains valid JSON', function () {",
+          "  pm.response.to.be.json;",
+          "  pm.response.json();",
+          "});",
+          "if (pm.response.code >= 400) {",
+          "  pm.test('Error does not expose server stack traces', function () {",
+          "    pm.expect(pm.response.text()).to.not.include('at Layer.handle');",
+          "    pm.expect(pm.response.text()).to.not.include('node_modules/');",
+          "  });",
+          "}",
+          "if (pm.response.code >= 200 && pm.response.code < 300) {",
+          "  const data = pm.response.json();",
+          "  if (name.includes('Login Client')) {",
+          "    pm.test('Client JWT returned', function () {",
+          "      pm.expect(data.token).to.be.a('string').and.not.empty;",
+          "    });",
+          "    pm.collectionVariables.set('clientToken', data.token);",
+          "  }",
+          "  if (name.includes('Login Freelancer')) {",
+          "    pm.test('Freelancer JWT returned', function () {",
+          "      pm.expect(data.token).to.be.a('string').and.not.empty;",
+          "    });",
+          "    pm.collectionVariables.set('freelancerToken', data.token);",
+          "  }",
+          "  if (name.includes('Login Second Freelancer')) {",
+          "    pm.test('Second freelancer JWT returned', function () {",
+          "      pm.expect(data.token).to.be.a('string').and.not.empty;",
+          "    });",
+          "    pm.collectionVariables.set('secondFreelancerToken', data.token);",
+          "  }",
+          "  if (name.includes('Register')) {",
+          "    pm.test('Password hash is not returned', function () {",
+          "      pm.expect(data.user).to.not.have.property('passwordHash');",
+          "    });",
+          "  }",
+          "  if (name.includes('Create Gig Successfully')) {",
+          "    pm.test('Created gig has an ID', function () {",
+          "      pm.expect(data.gig._id).to.be.a('string');",
+          "    });",
+          "    pm.collectionVariables.set('gigId', data.gig._id);",
+          "  }",
+          "  if (name.includes('Create Booking Successfully')) {",
+          "    pm.test('Booking and transaction created', function () {",
+          "      pm.expect(data.booking._id).to.be.a('string');",
+          "      pm.expect(data.transaction._id).to.be.a('string');",
+          "      pm.expect(data.booking.status).to.eql('Pending');",
+          "    });",
+          "    pm.collectionVariables.set('bookingId', data.booking._id);",
+          "  }",
+          "  if (name.includes('Complete Booking Successfully')) {",
+          "    pm.test('Booking is completed', function () {",
+          "      pm.expect(data.booking.status).to.eql('Completed');",
+          "    });",
+          "  }",
+          "  if (name.includes('View Freelancer Income')) {",
+          "    pm.test('Financial summary exists', function () {",
+          "      pm.expect(data.summary).to.have.property('totalIncome');",
+          "      pm.expect(data.summary).to.have.property('estimatedTax');",
+          "      pm.expect(data.summary).to.have.property('netIncome');",
+          "      pm.expect(data.transactions).to.be.an('array');",
+          "    });",
+          "  }",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Authentication Tests",
+      "item": [
+        {
+          "name": "01 Register Client [201]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Test Client\",\"email\":\"{{clientEmail}}\",\"password\":\"{{password}}\",\"role\":\"client\"}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "02 Register Freelancer [201]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Test Freelancer\",\"email\":\"{{freelancerEmail}}\",\"password\":\"{{password}}\",\"role\":\"freelancer\"}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "03 Register Second Freelancer [201]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Second Freelancer\",\"email\":\"{{secondFreelancerEmail}}\",\"password\":\"{{password}}\",\"role\":\"freelancer\"}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "04 Reject Duplicate Email [409]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Duplicate Client\",\"email\":\"{{clientEmail}}\",\"password\":\"{{password}}\",\"role\":\"client\"}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "05 Reject Weak Password [400]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Weak Password\",\"email\":\"weak@example.com\",\"password\":\"123\",\"role\":\"client\"}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "06 Reject Invalid Email [400]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Invalid Email\",\"email\":\"wrong-email\",\"password\":\"{{password}}\",\"role\":\"client\"}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "07 Reject Admin Self Registration [400]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Fake Admin\",\"email\":\"fakeadmin@example.com\",\"password\":\"{{password}}\",\"role\":\"admin\"}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "08 Reject Unexpected Registration Fields [400]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Test User\",\"email\":\"unexpected@example.com\",\"password\":\"{{password}}\",\"role\":\"client\",\"isAdmin\":true}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "09 Login Client [200]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{clientEmail}}\",\"password\":\"{{password}}\"}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "10 Login Freelancer [200]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{freelancerEmail}}\",\"password\":\"{{password}}\"}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "11 Login Second Freelancer [200]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{secondFreelancerEmail}}\",\"password\":\"{{password}}\"}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "12 Reject Wrong Password [401]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{clientEmail}}\",\"password\":\"WrongPassword123!\"}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "13 Reject Missing Login Password [400]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{clientEmail}}\"}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "14 View Client Profile [200]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{clientToken}}"}],
+            "url": "{{baseUrl}}/auth/profile"
+          }
+        },
+        {
+          "name": "15 Reject Profile Without Token [401]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auth/profile"
+          }
+        },
+        {
+          "name": "16 Reject Invalid JWT [401]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer invalid.jwt.token"}],
+            "url": "{{baseUrl}}/auth/profile"
+          }
+        },
+        {
+          "name": "17 Update Client Profile [200]",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{clientToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Updated Client\"}"
+            },
+            "url": "{{baseUrl}}/auth/profile"
+          }
+        },
+        {
+          "name": "18 Reject Invalid Profile Name [400]",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{clientToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"A\"}"
+            },
+            "url": "{{baseUrl}}/auth/profile"
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Gig Management Tests",
+      "item": [
+        {
+          "name": "19 View Public Gigs [200]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/gigs"
+          }
+        },
+        {
+          "name": "20 Create Gig Successfully [201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{freelancerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Professional Web Design\",\"description\":\"I will design a responsive website for your business.\",\"category\":\"Web Development\",\"price\":500}"
+            },
+            "url": "{{baseUrl}}/gigs"
+          }
+        },
+        {
+          "name": "21 View Gig By ID [200]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/gigs/{{gigId}}"
+          }
+        },
+        {
+          "name": "22 View Freelancer Own Gigs [200]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{freelancerToken}}"}],
+            "url": "{{baseUrl}}/gigs/mine/list"
+          }
+        },
+        {
+          "name": "23 Update Own Gig [200]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{freelancerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Updated Web Design Service\",\"description\":\"I will create a responsive business website.\",\"category\":\"Web Development\",\"price\":650}"
+            },
+            "url": "{{baseUrl}}/gigs/{{gigId}}"
+          }
+        },
+        {
+          "name": "24 Reject Client Creating Gig [403]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{clientToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Unauthorised Gig\",\"description\":\"A client must not be allowed to create this gig.\",\"category\":\"Design\",\"price\":200}"
+            },
+            "url": "{{baseUrl}}/gigs"
+          }
+        },
+        {
+          "name": "25 Reject Gig Creation Without Token [401]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"No Token Gig\",\"description\":\"This request is missing its authentication token.\",\"category\":\"Design\",\"price\":100}"
+            },
+            "url": "{{baseUrl}}/gigs"
+          }
+        },
+        {
+          "name": "26 Reject Negative Gig Price [400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{freelancerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Invalid Price Gig\",\"description\":\"This gig contains a negative price.\",\"category\":\"Design\",\"price\":-100}"
+            },
+            "url": "{{baseUrl}}/gigs"
+          }
+        },
+        {
+          "name": "27 Reject Missing Gig Title [400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{freelancerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"description\":\"A gig without a title must fail validation.\",\"category\":\"Design\",\"price\":100}"
+            },
+            "url": "{{baseUrl}}/gigs"
+          }
+        },
+        {
+          "name": "28 Reject Invalid Gig ID [400]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/gigs/invalid-gig-id"
+          }
+        },
+        {
+          "name": "29 Reject Another Freelancer Updating Gig [404]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{secondFreelancerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Unauthorised Gig Update\",\"description\":\"Another freelancer should not update this gig.\",\"category\":\"Design\",\"price\":100}"
+            },
+            "url": "{{baseUrl}}/gigs/{{gigId}}"
+          }
+        },
+        {
+          "name": "30 Reject Another Freelancer Deleting Gig [404]",
+          "request": {
+            "method": "DELETE",
+            "header": [{"key": "Authorization", "value": "Bearer {{secondFreelancerToken}}"}],
+            "url": "{{baseUrl}}/gigs/{{gigId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Booking Tests",
+      "item": [
+        {
+          "name": "31 Create Booking Successfully [201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{clientToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"gigId\":\"{{gigId}}\"}"
+            },
+            "url": "{{baseUrl}}/bookings"
+          }
+        },
+        {
+          "name": "32 View Client Bookings [200]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{clientToken}}"}],
+            "url": "{{baseUrl}}/bookings/mine"
+          }
+        },
+        {
+          "name": "33 View Freelancer Bookings [200]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{freelancerToken}}"}],
+            "url": "{{baseUrl}}/bookings/freelancer"
+          }
+        },
+        {
+          "name": "34 Reject Booking Without Token [401]",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"gigId\":\"{{gigId}}\"}"
+            },
+            "url": "{{baseUrl}}/bookings"
+          }
+        },
+        {
+          "name": "35 Reject Freelancer Creating Booking [403]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{freelancerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"gigId\":\"{{gigId}}\"}"
+            },
+            "url": "{{baseUrl}}/bookings"
+          }
+        },
+        {
+          "name": "36 Reject Invalid Booking Gig ID [400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{clientToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"gigId\":\"invalid-id\"}"
+            },
+            "url": "{{baseUrl}}/bookings"
+          }
+        },
+        {
+          "name": "37 Reject Wrong Freelancer Completing Booking [404]",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer {{secondFreelancerToken}}"}],
+            "url": "{{baseUrl}}/bookings/{{bookingId}}/complete"
+          }
+        },
+        {
+          "name": "38 Complete Booking Successfully [200]",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer {{freelancerToken}}"}],
+            "url": "{{baseUrl}}/bookings/{{bookingId}}/complete"
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Income Tests",
+      "item": [
+        {
+          "name": "39 View Freelancer Income [200]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{freelancerToken}}"}],
+            "url": "{{baseUrl}}/transactions/income"
+          }
+        },
+        {
+          "name": "40 Reject Client Viewing Income [403]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{clientToken}}"}],
+            "url": "{{baseUrl}}/transactions/income"
+          }
+        },
+        {
+          "name": "41 Reject Income Without Token [401]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/transactions/income"
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Admin Security Tests",
+      "item": [
+        {
+          "name": "42 Reject Client Viewing Admin Users [403]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{clientToken}}"}],
+            "url": "{{baseUrl}}/admin/users"
+          }
+        },
+        {
+          "name": "43 Reject Freelancer Viewing Admin Stats [403]",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{freelancerToken}}"}],
+            "url": "{{baseUrl}}/admin/stats"
+          }
+        },
+        {
+          "name": "44 Reject Admin Route Without Token [401]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/bookings"
+          }
+        },
+        {
+          "name": "45 Reject Client Deactivating Gig [403]",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer {{clientToken}}"}],
+            "url": "{{baseUrl}}/admin/gigs/{{gigId}}/deactivate"
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - System Tests",
+      "item": [
+        {
+          "name": "46 Health Endpoint [200]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          }
+        },
+        {
+          "name": "47 About Endpoint [200]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/about"
+          }
+        },
+        {
+          "name": "48 Reject Unknown Route [404]",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/this-route-does-not-exist"
+          }
+        }
+      ]
+    }
+  ]
+}
