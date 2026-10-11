@@ -1,3 +1,10 @@
+/*
+Author: Rabindra Tamang
+Date Accessed: 11 October 2026
+Link: https://dev.to/rabindratamang/how-to-implement-role-based-access-control-rbac-in-nodejs-applications-1ed2
+Reason: Used to create role-based access control middleware that checks req.user.role and returns 403 for unauthorised roles.
+*/
+
 const requireRole = (...allowedRoles) => {
     return(req,res,next) => {
         if(!req.user) {

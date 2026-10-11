@@ -1,3 +1,16 @@
+/*
+Author: Ilya Kantor
+Date Accessed: 11 October 2026
+Link: https://javascript.info/fetch
+Reason: Used to send API requests with fetch, attach headers and handle non-OK responses.
+*/
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+Reason: Used to store and clear the JWT and user details in sessionStorage.
+*/
+
 //connects backend and frontend 
 //centralises the location of the backend 
 //instead of making every conpoment independently find the backend, we store it here 

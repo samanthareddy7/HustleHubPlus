@@ -1,3 +1,10 @@
+/*
+Author: Tutorialspoint
+Date Accessed: 11 October 2026
+Link: https://www.tutorialspoint.com/expressjs/expressjs_routing.htm
+Reason: Used to define the client and freelancer booking routes using HTTP methods and route parameters.
+*/
+
 const express = require("express");
 
 const router = express.Router();

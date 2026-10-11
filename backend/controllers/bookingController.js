@@ -1,3 +1,16 @@
+/*
+Author: Mongoose
+Date Accessed: 11 October 2026
+Link: https://mongoosejs.com/docs/transactions.html
+Reason: Used to create the booking and transaction together inside session.withTransaction().
+*/
+/*
+Author: MongoDB
+Date Accessed: 11 October 2026
+Link: https://www.mongodb.com/docs/manual/core/transactions/
+Reason: Used to understand how MongoDB transactions roll back all writes if one operation fails.
+*/
+
 const mongoose = require("mongoose");
 const Gig = require("../models/gigs");
 const Booking = require("../models/booking");

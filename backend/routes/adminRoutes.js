@@ -1,3 +1,10 @@
+/*
+Author: Mastering JS
+Date Accessed: 11 October 2026
+Link: https://masteringjs.io/tutorials/express/router
+Reason: Used to create an Express router and apply authentication and admin role middleware to all admin routes with router.use.
+*/
+
 const express = require("express");
 
 const router = express.Router();

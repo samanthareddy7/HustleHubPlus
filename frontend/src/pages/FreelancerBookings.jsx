@@ -1,3 +1,16 @@
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm
+Reason: Used window.confirm to ask the freelancer to confirm before completing a booking.
+*/
+/*
+Author: W3Schools
+Date Accessed: 11 October 2026
+Link: https://www.w3schools.com/jsref/jsref_tolocaledatestring.asp
+Reason: Used toLocaleDateString to format the booking dates.
+*/
+
 import { useEffect, useState } from "react";
 import {
     getFreelancerBookings,

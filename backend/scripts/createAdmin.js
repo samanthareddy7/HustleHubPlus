@@ -1,3 +1,9 @@
+/*
+Author: kelektiv
+Date Accessed: 11 October 2026
+Link: https://www.npmjs.com/package/bcrypt
+Reason: Used to hash the admin password with bcrypt before saving the admin account.
+*/
 
 //   ADMIN_EMAIL=admin@hustlehub.com ADMIN_PASSWORD='Admin@12345' node scripts/createAdmin.js
 require("dotenv").config();

@@ -1,3 +1,16 @@
+/*
+Author: Mongoose
+Date Accessed: 11 October 2026
+Link: https://mongoosejs.com/docs/queries.html
+Reason: Used to write the Mongoose queries (find, findOne, populate and sort) for the gig CRUD operations.
+*/
+/*
+Author: W3Schools
+Date Accessed: 11 October 2026
+Link: https://www.w3schools.com/nodejs/nodejs_mongodb_query.asp
+Reason: Used to filter gigs by fields such as isActive and freelancer in MongoDB queries.
+*/
+
 const Gig = require("../models/gigs");
 
 

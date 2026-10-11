@@ -1,3 +1,9 @@
+/*
+Author: OWASP
+Date Accessed: 11 October 2026
+Link: https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html
+Reason: Used to sanitise request bodies by stripping HTML and removing keys starting with $ or containing dots to prevent injection attacks.
+*/
 
 // text fields where HTML tags are never legitimate
 const TEXT_FIELDS = ["name", "title", "description", "category"];

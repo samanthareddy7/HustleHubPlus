@@ -1,3 +1,10 @@
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/examples/heroes/
+Reason: Used to design the hero section of the home page.
+*/
+
 import { Link } from "react-router-dom";
 
 function Home() {

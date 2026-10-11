@@ -1,3 +1,10 @@
+/*
+Author: express rate limit
+Date Accessed: 11 October 2026
+Link: https://express-rate-limit.mintlify.app/reference/configuration
+Reason: Used to create separate rate limiters for general, authentication and booking requests with a custom 429 handler.
+*/
+
 const { rateLimit } = require("express-rate-limit");
 
 // builds a 429 response that tells the client how long to wait

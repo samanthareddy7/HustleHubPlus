@@ -1,3 +1,10 @@
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+Reason: Used to total income, tax and net income from the transactions with Array.reduce.
+*/
+
 const Transaction =
     require("../models/transaction");
 

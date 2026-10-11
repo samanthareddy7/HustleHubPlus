@@ -1,3 +1,16 @@
+/*
+Author: Ijeoma Igboagu
+Date Accessed: 11 October 2026
+Link: https://www.freecodecamp.org/news/how-to-fetch-api-data-in-react/
+Reason: Used to fetch the gigs from the API and handle loading and error states.
+*/
+/*
+Author: Microsoft
+Date Accessed: 11 October 2026
+Link: https://learn.microsoft.com/en-us/windows/dev-environment/javascript/react-beginners-tutorial
+Reason: Used to fetch data with useState and useEffect and render it with map().
+*/
+
 import { useEffect, useState } from "react";
 import { getGigs, createBooking } from "../services/api";
 import { useNavigate } from "react-router-dom";

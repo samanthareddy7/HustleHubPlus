@@ -1,3 +1,16 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/learn/conditional-rendering
+Reason: Used to render different dashboard content depending on whether the user is a client or a freelancer.
+*/
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/components/badge/
+Reason: Used Bootstrap badges to show the booking and gig status.
+*/
+
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 

@@ -1,3 +1,10 @@
+/*
+Author: express validator
+Date Accessed: 11 October 2026
+Link: https://www.npmjs.com/package/express-validator
+Reason: Used to validate gig title, description, category and price with express-validator before reaching the controller.
+*/
+
 const { body, param, validationResult } = require("express-validator");
 
 //validation rules for creeating a gig

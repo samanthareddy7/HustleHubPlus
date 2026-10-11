@@ -1,3 +1,16 @@
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/components/modal/
+Reason: Used to build the booking confirmation modal.
+*/
+/*
+Author: React Router
+Date Accessed: 11 October 2026
+Link: https://reactrouter.com/api/hooks/useParams
+Reason: Used useParams to read the gig ID from the URL.
+*/
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getGigById, createBooking, getSavedUser } from "../services/api";

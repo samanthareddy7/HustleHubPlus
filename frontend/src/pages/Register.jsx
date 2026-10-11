@@ -1,3 +1,16 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/reference/react-dom/components/select
+Reason: Used a controlled select element for choosing the client or freelancer role.
+*/
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/components/alerts/
+Reason: Used Bootstrap alerts to display success and error messages.
+*/
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../services/api";

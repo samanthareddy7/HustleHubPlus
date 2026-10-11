@@ -1,3 +1,10 @@
+/*
+Author: Vite
+Date Accessed: 11 October 2026
+Link: https://vite.dev/guide/api-plugin
+Reason: Used to write a custom Vite plugin with transformIndexHtml that injects the Content Security Policy meta tag at build time.
+*/
+
 import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv } from 'vite'
 

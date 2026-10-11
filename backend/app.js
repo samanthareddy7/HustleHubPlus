@@ -1,3 +1,45 @@
+/*
+Code Attribution
+https://expressjs.com/en/resources/middleware/cors/
+https://helmet.js.org/#get-started
+https://www.npmjs.com/package/dotenv
+https://medium.com/@finnkumar6/how-to-connect-mongodb-using-mongoose-in-node-js-like-a-pro-a-fresh-and-modern-approach-6470c69aec16
+https://nodejs.org/api/fs.html
+https://stackoverflow.com/questions/31309759/what-is-secret-key-for-jwt-based-authentication-and-how-to-generate-it/
+https://expressjs.com/en/5x/guide/writing-middleware/
+https://express-rate-limit.mintlify.app/reference/configuration
+https://dev.to/rabindratamang/how-to-implement-role-based-access-control-rbac-in-nodejs-applications-1ed2
+https://express-validator.github.io/docs/api/validation-chain/
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Character_classes
+https://www.npmjs.com/package/validator
+https://www.npmjs.com/package/express-validator
+https://www.geeksforgeeks.org/web-tech/json-web-token-jwt/
+https://mongoosejs.com/docs/guide.html
+https://www.mongodb.com/docs/manual/core/index-unique/
+https://mongoosejs.com/docs/validation.html
+https://mongoosejs.com/docs/populate.html
+https://www.npmjs.com/package/bcrypt
+https://nodejs.org/api/modules.html
+https://expressjs.com/en/5x/api/router
+https://expressjs.com/en/guide/routing/
+https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/routes
+https://www.tutorialspoint.com/expressjs/expressjs_routing.htm
+https://expressjs.com/en/guide/routing/ 
+https://masteringjs.io/tutorials/express/router
+https://mongoosejs.com/docs/api/aggregate.html
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+https://www.npmjs.com/package/bcrypt
+https://expressjs.com/en/guide/error-handling.html
+https://medium.com/@s35919223/middleware-in-express-js-the-complete-deep-dive-c36c632d7824
+https://mongoosejs.com/docs/transactions.html
+https://www.mongodb.com/docs/manual/core/transactions/
+https://mongoosejs.com/docs/queries.html
+https://www.w3schools.com/nodejs/nodejs_mongodb_query.asp
+https://medium.com/@rohailahmad2226/a-beginners-guide-to-express-js-handling-requests-responses-and-apis-in-node-js-86100a229faf
+https://www.geeksforgeeks.org/node-js/why-express-app-and-server-files-kept-separately/
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+*/
+
 
 /*
 Author: Helmet.js

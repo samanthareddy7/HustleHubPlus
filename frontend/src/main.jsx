@@ -1,3 +1,10 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/reference/react-dom/client/createRoot
+Reason: Used to render the root App component into the DOM with createRoot and StrictMode.
+*/
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 

@@ -1,3 +1,16 @@
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/content/tables/
+Reason: Used to display users and bookings in striped, responsive Bootstrap tables.
+*/
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+Reason: Used Promise.all to load the stats, users and bookings at the same time.
+*/
+
 import { useEffect, useState } from "react";
 import {
     getAdminStats,

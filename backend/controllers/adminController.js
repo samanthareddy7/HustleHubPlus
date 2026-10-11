@@ -1,3 +1,16 @@
+/*
+Author: Mongoose
+Date Accessed: 11 October 2026
+Link: https://mongoosejs.com/docs/api/aggregate.html
+Reason: Used to build the aggregation pipeline ($match and $group) that totals completed transaction value.
+*/
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+Reason: Used to run the platform count queries in parallel with Promise.all.
+*/
+
 const { User } = require("../models/user");
 const Gig = require("../models/gigs");
 const Booking = require("../models/booking");
