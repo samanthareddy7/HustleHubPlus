@@ -199,29 +199,29 @@ function Gigs() {
                                         </div>
                                     </div>
 
-                                    <div className="d-flex justify-content-between align-items-center">
+                                   <h5 className="fw-bold mb-3">
+    {formatCurrency(gig.price)}
+</h5>
 
-                                        <h5 className="fw-bold mb-0">
-                                            {formatCurrency(gig.price)}
-                                        </h5>
+<div className="d-flex gap-2">
 
-                                        <button
-                                            className="btn btn-primary"
-                                            onClick={() =>
-                                                handleBookClick(gig)
-                                            }
-                                        >
-                                            Book Now
-                                        </button>
+    <button
+        className="btn btn-primary flex-fill text-nowrap"
+        onClick={() =>
+            handleBookClick(gig)
+        }
+    >
+        Book Now
+    </button>
 
-                                        <button
-                                        className="btn btn-primary"
-                                        onClick={() => navigate(`/gigs/${gig._id}`)}
-                                    >
-                                        View Details
-                                    </button>
+    <button
+        className="btn btn-primary flex-fill text-nowrap"
+        onClick={() => navigate(`/gigs/${gig._id}`)}
+    >
+        View Details
+    </button>
 
-                                    </div>
+</div>
 
                                 </div>
                             </div>

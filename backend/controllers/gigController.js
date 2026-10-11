@@ -7,7 +7,7 @@ const getGigs = async (req, res, next) => {
         const gigs = await Gig.find({
             isActive : true
         })
-        .populate("freelancer","name email")
+        .populate("freelancer","name")
         .sort({createdAt: -1})
 
         res.status(200).json({gigs});
@@ -26,7 +26,7 @@ const getGigById = async(req,res,next) => {
             isActive: true
         }).populate(
             "freelancer",
-            "name email"
+            "name"
         );
 
         if(!gig) {

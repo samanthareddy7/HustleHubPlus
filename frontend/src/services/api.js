@@ -198,7 +198,11 @@ export{
     getMyBookings,
     getFreelancerBookings,
     completeBooking,
-    getFreelancerIncome
+    getFreelancerIncome,
+    getAdminStats,
+    getAdminUsers,
+    getAdminBookings,
+    deactivateGig
 };
 
 
