@@ -7,6 +7,8 @@ Reason: Used to write a custom Vite plugin with transformIndexHtml that injects 
 
 import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv } from 'vite'
+import fs from 'fs'
+import path from 'path'
 
 const cspPlugin = (apiOrigin) => ({
   name: 'inject-csp',
@@ -43,5 +45,12 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), cspPlugin(apiOrigin)],
+    server: {
+      https: {
+        key: fs.readFileSync(path.resolve(__dirname, 'certificates/privatekey.pem')),
+        cert: fs.readFileSync(path.resolve(__dirname, 'certificates/certificate.pem'))
+      },
+      port: 5173
+    }
   }
 })
