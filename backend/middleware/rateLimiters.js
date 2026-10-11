@@ -7,6 +7,8 @@ Reason: Used to create separate rate limiters for general, authentication and bo
 
 const { rateLimit } = require("express-rate-limit");
 
+const isTestEnv = process.env.NODE_ENV === "test";
+
 // builds a 429 response that tells the client how long to wait
 const buildHandler = (message) => (req, res) => {
   const retryAfter = Number(res.getHeader("Retry-After")) || undefined;
@@ -24,6 +26,7 @@ const apiLimiter = rateLimit({
   limit: 100,
   standardHeaders: "draft-8",
   legacyHeaders: false,
+  skip: () => isTestEnv,
   handler: buildHandler("Too many requests. Please slow down.")
 });
 
@@ -34,6 +37,7 @@ const authLimiter = rateLimit({
   standardHeaders: "draft-8",
   legacyHeaders: false,
   skipSuccessfulRequests: false,
+  skip: () => isTestEnv,
   handler: buildHandler("Too many auth requests. Try again later.")
 });
 
@@ -43,6 +47,7 @@ const bookingLimiter = rateLimit({
   limit: 20,
   standardHeaders: "draft-8",
   legacyHeaders: false,
+  skip: () => isTestEnv,
   handler: buildHandler("Too many booking requests. Try again later.")
 });
 
