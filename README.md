@@ -1,11 +1,13 @@
-# HustleHub+
+
+
+# <img width="80" height="80" alt="HustleHub" src="https://github.com/user-attachments/assets/5a42dacb-93f8-4838-a4b4-c3700bbe2323" /> HustleHub+
 
 <p align="justify">
-HustleHub+ is a secure, full-stack freelance marketplace built on the MERN stack (MongoDB, Express.js, React.js, and Node.js) that connects clients with skilled freelancers for browsing and booking specialized service gigs. The platform also integrates automated financial management tools that track client bookings, calculate freelancer gross earnings and estimate tax liabilities. Designed with security from the start, HustleHub+ protects sensitive identity and transactional data using end-to-end HTTPS encryption, bcrypt password hashing, stateless JSON Web Token (JWT) authentication, strict Role-Based Access Control, and  validation middleware to help defend against web vulnerabilities like NoSQL injection and XSS.
+HustleHub+ is a secure, full-stack freelance marketplace built on the MERN stack (MongoDB, Express.js, React.js, and Node.js) that connects clients with skilled freelancers for browsing and booking specialised service gigs. The platform also integrates automated financial management tools that track client bookings, calculate freelancer gross earnings and estimate tax liabilities. Designed with security from the start, HustleHub+ protects sensitive identity and transactional data using end-to-end HTTPS encryption, bcrypt password hashing, stateless JSON Web Token (JWT) authentication, strict Role-Based Access Control, and  validation middleware to help defend against web vulnerabilities like NoSQL injection and XSS.
 </p>
 
 You can watch the demo for Part 1 here: https://youtu.be/oPwIyylQsJY 
-And the demo for Part 2 here: https://youtu.be/AMqdf-I9gP0
+and the demo for Part 2 here: [https://youtu.be/AMqdf-I9gP0](https://youtu.be/u6zQRh0GITQ)
 
 # 1. Implemented Features
 
@@ -510,7 +512,7 @@ npm test
 ```
 
 
-# 17. Project Security Summary
+# Project Security Summary
 
 HustleHub+ follows a defence-in-depth approach rather than relying on a single security control.
 
