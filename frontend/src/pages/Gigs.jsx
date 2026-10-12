@@ -12,7 +12,7 @@ Reason: Used to fetch data with useState and useEffect and render it with map().
 */
 
 import { useEffect, useState } from "react";
-import { getGigs, createBooking } from "../services/api";
+import { getGigs, createBooking,getSavedUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 function Gigs() {
@@ -24,6 +24,7 @@ function Gigs() {
     const [selectedGig, setSelectedGig] = useState(null);
     const [bookingLoading, setBookingLoading] = useState(false);
     const navigate = useNavigate();
+    const user = getSavedUser();
 
     useEffect(() => {
         loadGigs();
@@ -49,6 +50,10 @@ function Gigs() {
 
     // Opens the confirmation UI
     const handleBookClick = (gig) => {
+        if (!user) {
+            navigate("/login");
+            return;
+        }
         setError("");
         setSuccess("");
         setSelectedGig(gig);

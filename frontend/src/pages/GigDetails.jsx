@@ -63,6 +63,10 @@ function GigDetails() {
 
     //open booking ocnfirmation
     const handleBookClick = () => {
+        if (!isLoggedIn) {
+            navigate("/login");
+            return;
+        }
 
         setBookingMessage("");
         setShowConfirmation(true);
