@@ -7,11 +7,21 @@ Reason: Used to implement the MongoDB user model using Mongoose schemas, models 
 
 const mongoose = require("mongoose");
 
+const capitalizeName = (name) => {
+  if (typeof name !== "string") return name;
+  return name
+    .trim()
+    .toLowerCase()
+    .split(/\s+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 // Imports Mongoose to define the user schema and interact with MongoDB.
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, trim: true },
+    name: { type: String, required: true, trim: true , set: capitalizeName},
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     passwordHash: { type: String, required: true },
     role: { type: String, enum: ["client", "freelancer", "admin"], default: "client" }
