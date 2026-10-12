@@ -7,7 +7,8 @@ HustleHub+ is a secure, full-stack freelance marketplace built on the MERN stack
 </p>
 
 You can watch the demo for Part 1 here: https://youtu.be/oPwIyylQsJY 
-and the demo for Part 2 here: [https://youtu.be/AMqdf-I9gP0](https://youtu.be/u6zQRh0GITQ)
+and the demo for Part 2 here: https://youtu.be/laMGd5GxnL8 
+
 
 # 1. Implemented Features
 
