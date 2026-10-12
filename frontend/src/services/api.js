@@ -197,6 +197,11 @@ const deactivateGig = async (id) => {
         method: "PATCH"
     });
 };
+
+const getAdminGigs = async () => {
+    return apiRequest("/admin/gigs");
+};
+
 export{
     getHealth,
     registerUser,
@@ -215,7 +220,8 @@ export{
     getAdminStats,
     getAdminUsers,
     getAdminBookings,
-    deactivateGig
+    deactivateGig,
+    getAdminGigs
 };
 
 

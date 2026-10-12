@@ -21,7 +21,8 @@ const {
     getAllUsers,
     getAllBookings,
     getPlatformStats,
-    deactivateGig
+    deactivateGig,
+    getAllGigs
 } = require("../controllers/adminController");
 
 // every admin route requires a valid JWT AND the admin role
@@ -37,5 +38,6 @@ router.patch(
     handleGigValidationErrors,
     deactivateGig
 );
+router.get("/gigs", getAllGigs);
 
 module.exports = router;

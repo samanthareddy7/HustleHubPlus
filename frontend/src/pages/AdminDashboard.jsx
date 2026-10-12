@@ -15,7 +15,9 @@ import { useEffect, useState } from "react";
 import {
     getAdminStats,
     getAdminUsers,
-    getAdminBookings
+    getAdminBookings,
+    getAdminGigs,
+    deactivateGig
 } from "../services/api";
 
 // colour for each booking status
@@ -48,6 +50,9 @@ function AdminDashboard() {
     const [stats, setStats] = useState(null);
     const [users, setUsers] = useState([]);
     const [bookings, setBookings] = useState([]);
+    const [gigs, setGigs] = useState([]);
+    const [deactivatingId, setDeactivatingId] = useState(null);
+    const [success, setSuccess] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -58,14 +63,16 @@ function AdminDashboard() {
     useEffect(() => {
         const load = async () => {
             try {
-                const [statsData, usersData, bookingsData] = await Promise.all([
+                const [statsData, usersData, bookingsData, gigsData] = await Promise.all([
                     getAdminStats(),
                     getAdminUsers(),
-                    getAdminBookings()
+                    getAdminBookings(),
+                    getAdminGigs()
                 ]);
                 setStats(statsData.stats);
                 setUsers(usersData.users);
                 setBookings(bookingsData.bookings);
+                setGigs(gigsData.gigs);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -97,7 +104,7 @@ function AdminDashboard() {
     const cards = [
         { label: "Users", value: stats.users, tab: "users" },
         { label: "Bookings", value: stats.bookings, tab: "bookings" },
-        { label: "Gigs", value: stats.gigs },
+        { label: "Gigs", value: stats.gigs, tab: "gigs" },
         { label: "Transactions", value: stats.transactions },
         { label: "Completed value", value: `R ${stats.completedValue.toFixed(2)}` }
     ];
@@ -111,6 +118,40 @@ function AdminDashboard() {
         statusFilter === "All"
             ? bookings
             : bookings.filter((b) => b.status === statusFilter);
+    
+    const handleDeactivateGig = async (gig) => {
+        const confirmed = window.confirm(
+            `Are you sure you want to deactivate "${gig.title}"?`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            setDeactivatingId(gig._id);
+            setError("");
+            setSuccess("");
+
+            const data = await deactivateGig(gig._id);
+
+            setGigs((currentGigs) =>
+                currentGigs.map((currentGig) =>
+                    currentGig._id === gig._id
+                        ? data.gig
+                        : currentGig
+                )
+            );
+
+            setSuccess("Gig deactivated successfully.");
+        } catch (err) {
+            setError(
+                err.message || "Unable to deactivate gig."
+            );
+        } finally {
+            setDeactivatingId(null);
+        }
+    };
 
     return (
         <div className="container py-5">
@@ -248,6 +289,106 @@ function AdminDashboard() {
                     </div>
                 </>
             )}
+
+            {activeTab === "gigs" && (
+            <>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h3 className="mb-0">Gig Moderation</h3>
+
+                    <span className="text-muted">
+                        {gigs.length} gigs
+                    </span>
+                </div>
+
+                {success && (
+                    <div className="alert alert-success">
+                        {success}
+                    </div>
+                )}
+
+                <div className="table-responsive">
+                    <table className="table table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th>Gig</th>
+                                <th>Freelancer</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {gigs.length === 0 ? (
+                                <tr>
+                                    <td
+                                        colSpan="6"
+                                        className="text-center text-muted py-4"
+                                    >
+                                        No gigs to show.
+                                    </td>
+                                </tr>
+                            ) : (
+                                gigs.map((gig) => (
+                                    <tr key={gig._id}>
+                                        <td>{gig.title}</td>
+
+                                        <td>
+                                            <div>{gig.freelancer?.name}</div>
+                                            <small className="text-muted">
+                                                {gig.freelancer?.email}
+                                            </small>
+                                        </td>
+
+                                        <td>{gig.category}</td>
+
+                                        <td>
+                                            R {Number(gig.price).toFixed(2)}
+                                        </td>
+
+                                        <td>
+                                            {gig.isActive ? (
+                                                <span className="badge bg-success">
+                                                    Active
+                                                </span>
+                                            ) : (
+                                                <span className="badge bg-secondary">
+                                                    Inactive
+                                                </span>
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            {gig.isActive ? (
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-sm btn-danger"
+                                                    disabled={
+                                                        deactivatingId === gig._id
+                                                    }
+                                                    onClick={() =>
+                                                        handleDeactivateGig(gig)
+                                                    }
+                                                >
+                                                    {deactivatingId === gig._id
+                                                        ? "Deactivating..."
+                                                        : "Deactivate"}
+                                                </button>
+                                            ) : (
+                                                <span className="text-muted">
+                                                    Deactivated
+                                                </span>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </>
+        )}
         </div>
     );
 }

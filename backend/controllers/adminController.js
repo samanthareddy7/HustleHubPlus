@@ -96,9 +96,23 @@ const deactivateGig = async (req, res, next) => {
     }
 };
 
+// all gigs for admin moderation
+const getAllGigs = async (req, res, next) => {
+    try {
+        const gigs = await Gig.find()
+            .populate("freelancer", "name email")
+            .sort({ createdAt: -1 });
+
+        res.status(200).json({ gigs });
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     getAllUsers,
     getAllBookings,
     getPlatformStats,
-    deactivateGig
+    deactivateGig,
+    getAllGigs
 };
