@@ -107,7 +107,7 @@ function Register() {
                                     </div>
                                 )}
 
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit} noValidate>
 
 
                                     <div className="mb-3">
@@ -145,6 +145,7 @@ function Register() {
                                         <input
                                             id="email"
                                             type="email"
+                                            autocomplete="new-email"
                                             className="form-control"
                                             value={email}
                                             onChange={(event) =>
@@ -169,6 +170,7 @@ function Register() {
                                             id="password"
                                             type="password"
                                             className="form-control"
+                                            autocomplete="new-password"
                                             value={password}
                                             onChange={(event) =>
                                                 setPassword(event.target.value)
@@ -179,7 +181,7 @@ function Register() {
 
                                         <div className="form-text">
                                             Password must contain at least
-                                            8 characters.
+                                            8 characters, a lowercase and uppercase letter, a number and a special character
                                         </div>
 
                                     </div>
