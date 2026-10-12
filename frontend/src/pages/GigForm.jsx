@@ -31,8 +31,7 @@ function GigForm() {
         title: "",
         description: "",
         category: "",
-        price: "",
-        isActive: true
+        price: ""
     });
 
     const [formErrors, setFormErrors] = useState({});
@@ -104,8 +103,7 @@ const validateGig = () => {
                     title: gig.title || "",
                     description: gig.description || "",
                     category: gig.category || "",
-                    price: gig.price ?? "",
-                    isActive: gig.isActive ?? true
+                    price: gig.price ?? ""
                 });
 
             } catch (err) {
@@ -158,8 +156,7 @@ const validateGig = () => {
                 title: formData.title,
                 description: formData.description,
                 category: formData.category,
-                price: Number(formData.price),
-                isActive: formData.isActive
+                price: Number(formData.price)
             };
 
             if (isEditing) {
@@ -238,7 +235,7 @@ const validateGig = () => {
                                 </div>
                             )}
 
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit} noValidate>
 
                                 <div className="mb-3">
 
@@ -275,7 +272,7 @@ const validateGig = () => {
                                     </label>
 
                                     <textarea
-                                        className={`form-control ${ formErrors.title ? "is-invalid" : "" }`}
+                                        className={`form-control ${ formErrors.description ? "is-invalid" : "" }`}
                                         id="description"
                                         name="description"
                                         rows="5"
@@ -286,7 +283,7 @@ const validateGig = () => {
                                         required
                                     />
 
-                                    {formErrors.title && ( <div className="invalid-feedback"> {formErrors.description} </div> )}
+                                    {formErrors.description && ( <div className="invalid-feedback"> {formErrors.description} </div> )}
 
                                     <div className="form-text">
                                         {formData.description.length}/2000
@@ -307,7 +304,7 @@ const validateGig = () => {
                                         </label>
 
                                         <select
-                                            className={`form-select ${ formErrors.title ? "is-invalid" : "" }`}
+                                            className={`form-select ${ formErrors.category ? "is-invalid" : "" }`}
                                             id="category"
                                             name="category"
                                             value={formData.category}
@@ -380,25 +377,6 @@ const validateGig = () => {
 
                                 </div>
 
-                                <div className="form-check mb-4">
-
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        id="isActive"
-                                        name="isActive"
-                                        checked={formData.isActive}
-                                        onChange={handleChange}
-                                    />
-
-                                    <label
-                                        className="form-check-label"
-                                        htmlFor="isActive"
-                                    >
-                                        Make this gig active
-                                    </label>
-
-                                </div>
 
                                 <div className="d-flex gap-2">
 

@@ -20,6 +20,7 @@ function Gigs() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("All");
 
     const [selectedGig, setSelectedGig] = useState(null);
     const [bookingLoading, setBookingLoading] = useState(false);
@@ -102,6 +103,29 @@ function Gigs() {
         return `R${Number(amount || 0).toFixed(2)}`;
     };
 
+    const filteredGigs = selectedCategory === "All"
+        ? gigs
+        : gigs.filter(gig => gig.category === selectedCategory);
+
+    if (loading) {
+        return (
+            <div className="container py-5 text-center">
+                <div
+                    className="spinner-border text-primary"
+                    role="status"
+                >
+                    <span className="visually-hidden">
+                        Loading...
+                    </span>
+                </div>
+
+                <p className="text-muted mt-3">
+                    Loading available gigs...
+                </p>
+            </div>
+        );
+    };
+
     if (loading) {
         return (
             <div className="container py-5 text-center">
@@ -123,15 +147,32 @@ function Gigs() {
 
     return (
         <div className="container py-5">
-
-            <div className="mb-4">
-                <h1 className="fw-bold">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+           <div>
+            <h1 className="fw-bold">
                     Browse Gigs
                 </h1>
 
-                <p className="text-muted">
+            <p className="text-muted mb-0">
                     Find a freelancer and book a service.
                 </p>
+                </div>
+            <div style={{ minWidth: "220px" }}>
+                    <select
+                        className="form-select"
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                        <option value="All">All Categories</option>
+                        <option value="Graphic Design">Graphic Design</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Writing">Writing</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Video Editing">Video Editing</option>
+                        <option value="Photography">Photography</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
             </div>
 
             {error && (
@@ -183,7 +224,7 @@ function Gigs() {
             ) : (
                 <div className="row g-4">
 
-                    {gigs.map((gig) => (
+                    {filteredGigs.map((gig) => (
                         <div
                             className="col-md-6 col-lg-4"
                             key={gig._id}

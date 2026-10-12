@@ -81,7 +81,6 @@ describe('HustleHub+ Gig Form Tests', () => {
     expect(screen.getByLabelText('Description')).toBeInTheDocument();
     expect(screen.getByLabelText('Category')).toBeInTheDocument();
     expect(screen.getByLabelText('Price (R)')).toBeInTheDocument();
-    expect(screen.getByLabelText('Make this gig active')).toBeInTheDocument();
   });
 
   it('displays available gig categories', () => {
@@ -111,19 +110,6 @@ describe('HustleHub+ Gig Form Tests', () => {
     expect(screen.getByLabelText('Price (R)')).toHaveValue(500);
   });
 
-  it('sets new gigs as active by default', async () => {
-    const user = userEvent.setup();
-
-    renderGigForm();
-
-    const checkbox = screen.getByLabelText('Make this gig active');
-
-    expect(checkbox).toBeChecked();
-
-    await user.click(checkbox);
-
-    expect(checkbox).not.toBeChecked();
-  });
 
   it('prevents submitting an empty form', () => {
     renderGigForm();
@@ -192,8 +178,7 @@ describe('HustleHub+ Gig Form Tests', () => {
         title: 'Professional Logo Design',
         description: 'I will create a professional logo for your business.',
         category: 'Graphic Design',
-        price: 500,
-        isActive: true
+        price: 500
       });
     });
 
@@ -234,8 +219,7 @@ describe('HustleHub+ Gig Form Tests', () => {
         title: 'Existing Logo Design',
         description: 'An existing professional design service.',
         category: 'Graphic Design',
-        price: 300,
-        isActive: true
+        price: 300
       }
     });
 
