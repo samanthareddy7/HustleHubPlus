@@ -12,7 +12,7 @@ Reason: Used to filter gigs by fields such as isActive and freelancer in MongoDB
 */
 
 const Gig = require("../models/gigs");
-
+const Booking = require("../models/booking");
 
 //gets all gigs
 const getGigs = async (req, res, next) => {
@@ -140,11 +140,12 @@ const updateGig = async (req, res, next) => {
 //deletig owned gig
 const deleteGig = async (req, res, next) => {
     try {
-        const gig = await Gig.findOneAndDelete({
+
+        // Find the gig first
+        const gig = await Gig.findOne({
             _id: req.params.id,
             freelancer: req.user.id
         });
-
 
         if (!gig) {
             const error = new Error(
@@ -154,6 +155,21 @@ const deleteGig = async (req, res, next) => {
             throw error;
         }
 
+        // Prevent deletion if the gig has any bookings
+        const bookingExists = await Booking.exists({
+            gig: gig._id
+        });
+
+        if (bookingExists) {
+            const error = new Error(
+                "This gig cannot be deleted because it has existing bookings."
+            );
+            error.statusCode = 409;
+            throw error;
+        }
+
+        // Safe to delete
+        await gig.deleteOne();
 
         res.status(200).json({
             message: "Gig deleted successfully"

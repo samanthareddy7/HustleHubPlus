@@ -220,16 +220,37 @@ function MyGigs() {
 
                                         </div>
 
+                                        {!gig.isActive && (
+                                        <div
+                                                className="alert alert-warning py-2 small"
+                                                role="alert"
+                                            >
+                                                This gig has been deactivated and is no longer
+                                                available on the marketplace.
+                                        </div>
+                                        )}
+
                                         <div className="d-flex gap-2">
 
-                                            <a
-                                                href={`/gigs/edit/${gig._id}`}
-                                                className="btn btn-outline-primary flex-fill"
-                                            >
-                                                Edit
-                                            </a>
+                                            {gig.isActive ? (
+                                                <a
+                                                    href={`/gigs/edit/${gig._id}`}
+                                                    className="btn btn-outline-primary flex-fill"
+                                                >
+                                                    Edit
+                                                </a>
+                                            ) : (
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-secondary flex-fill"
+                                                    disabled
+                                                >
+                                                    Cannot Edit
+                                                </button>
+                                            )}
 
                                             <button
+                                                type="button"
                                                 className="btn btn-outline-danger flex-fill"
                                                 onClick={() =>
                                                     handleDelete(gig._id)
