@@ -1,0 +1,228 @@
+/*
+Author: Ilya Kantor
+Date Accessed: 11 October 2026
+Link: https://javascript.info/fetch
+Reason: Used to send API requests with fetch, attach headers and handle non-OK responses.
+*/
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+Reason: Used to store and clear the JWT and user details in sessionStorage.
+*/
+
+//connects backend and frontend 
+//centralises the location of the backend 
+//instead of making every conpoment independently find the backend, we store it here 
+const API_URL = import.meta.env.VITE_API_URL;
+
+//for authentication and token management 
+//jwt is stored in sessionStorage not localStorage 
+//so auth is removed when session ends
+export const getToken = () => {
+    return sessionStorage.getItem('token');
+};
+
+export const saveAuth = (token, user) => {
+    sessionStorage.setItem('token', token);
+    sessionStorage.setItem('user', JSON.stringify(user));
+};
+
+export const clearAuth = () => {
+sessionStorage.removeItem('token');
+sessionStorage.removeItem('user');
+};
+
+export const getSavedUser =() => {
+    const user = sessionStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+};
+
+//generic api request 
+
+//generic api request
+export const apiRequest = async (path, options = {}) => {
+    const token = getToken();
+
+    const headers = {
+        'Content-Type':'application/json',
+        ...options.headers
+    };
+
+    if(token){
+        headers.Authorization = `Bearer ${token}`;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}${path}`, {
+            ...options,
+            headers
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(
+                data.error ||
+                data.message ||
+                `Request failed with status ${response.status}`
+            );
+        }
+
+        return data;
+
+    } catch (error) {
+        if (error instanceof TypeError) {
+            throw new Error(
+                "Unable to connect to the backend. Check that the API is running and the API URL is correct."
+            );
+        }
+        throw error;
+    }
+};
+
+//req the health information
+//asynchronous rrquest because it is a network request
+const getHealth = async () => {
+    const response = await fetch(
+        `${API_URL}/health`
+    );
+
+    if(!response.ok){
+        throw new Error(
+            "Could not connect to the backend"
+        );
+
+    }
+
+    const data = await response.json();
+
+    return data;
+};
+
+
+const registerUser = async (registrationData) => {
+
+    return apiRequest("/auth/register", {
+        method: "POST",
+        body: JSON.stringify(registrationData)
+    });
+
+};
+
+const loginUser = async (loginData) => {
+
+    return apiRequest("/auth/login", {
+        method: "POST",
+        body: JSON.stringify(loginData)
+    });
+
+};
+
+//gigs 
+
+const getGigs = async () => {
+    return apiRequest("/gigs");
+};
+
+const getGigById = async (id) => {
+    return apiRequest(`/gigs/${id}`);
+};
+
+const getMyGigs = async () => {
+    return apiRequest("/gigs/mine/list");
+};
+
+const createGig = async (gigData) => {
+    return apiRequest("/gigs", {
+        method: "POST",
+        body: JSON.stringify(gigData)
+    });
+};
+
+const updateGig = async (id, gigData) => {
+    return apiRequest(`/gigs/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(gigData)
+    });
+};
+
+const deleteGig = async (id) => {
+    return apiRequest(`/gigs/${id}`, {
+        method: "DELETE"
+    });
+};
+
+const createBooking = async (gigId) => {
+    return apiRequest("/bookings", {
+        method: "POST",
+        body: JSON.stringify({
+            gigId
+        })
+    });
+};
+
+const getMyBookings = async () => {
+    return apiRequest("/bookings/mine");
+};
+
+const getFreelancerBookings = async () => {
+    return apiRequest("/bookings/freelancer");
+};
+
+
+const completeBooking = async (id) => {
+    return apiRequest(`/bookings/${id}/complete`, {
+        method: "PATCH"
+    });
+};
+const getFreelancerIncome = async () => {
+    return apiRequest("/transactions/income");
+};
+//admin
+const getAdminStats = async () => {
+    return apiRequest("/admin/stats");
+};
+
+const getAdminUsers = async () => {
+    return apiRequest("/admin/users");
+};
+
+const getAdminBookings = async () => {
+    return apiRequest("/admin/bookings");
+};
+
+const deactivateGig = async (id) => {
+    return apiRequest(`/admin/gigs/${id}/deactivate`, {
+        method: "PATCH"
+    });
+};
+
+const getAdminGigs = async () => {
+    return apiRequest("/admin/gigs");
+};
+
+export{
+    getHealth,
+    registerUser,
+    loginUser,
+    getGigs,
+    getGigById,
+    getMyGigs,
+    createGig,
+    updateGig,
+    deleteGig,
+    createBooking,
+    getMyBookings,
+    getFreelancerBookings,
+    completeBooking,
+    getFreelancerIncome,
+    getAdminStats,
+    getAdminUsers,
+    getAdminBookings,
+    deactivateGig,
+    getAdminGigs
+};
+
+
+

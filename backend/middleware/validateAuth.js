@@ -42,7 +42,7 @@ const registerValidationRules = [
   //specified roles for the system
   body("role")
     .optional()
-    .isIn(["client", "freelancer", "admin"]).withMessage("Role must be client, freelancer, or admin")
+    .isIn(["client", "freelancer"]).withMessage("Role must be client or freelancer")
 ];
 
 const loginValidationRules = [
@@ -77,9 +77,29 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
+const rejectUnexpectedFields = (allowedFields) => {
+  return (req, res, next) => {
+    const unexpectedFields = Object.keys(req.body).filter(
+                field => !allowedFields.includes(field)
+            );
+        
+    if (unexpectedFields.length > 0) {
+
+            const error = new Error(
+                `Unexpected field(s): ${unexpectedFields.join(", ")}`
+            );
+            error.statusCode = 400;
+            return next(error);
+    }
+
+        next();
+    };
+};
+
 module.exports = {
   registerValidationRules,
   loginValidationRules,
   updateProfileValidationRules,
-  handleValidationErrors
+  handleValidationErrors, 
+  rejectUnexpectedFields
 };

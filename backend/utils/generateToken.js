@@ -10,6 +10,8 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
 
+const JWT_ISSUER = process.env.JWT_ISSUER || "hustlehub-api";
+const JWT_AUDIENCE = process.env.JWT_AUDIENCE || "hustlehub-client";
 
 //Generates a signed JWT for an authenticated user.
 const generateToken = (user) => {
@@ -22,7 +24,10 @@ const generateToken = (user) => {
   return jwt.sign(
     { id: user.id, email: user.email, role: user.role },
     JWT_SECRET,
-    { expiresIn: JWT_EXPIRES_IN }
+    { expiresIn: JWT_EXPIRES_IN,
+      algorithm: "HS256", 
+      issuer: JWT_ISSUER, 
+      audience: JWT_AUDIENCE }
   );
 };
 

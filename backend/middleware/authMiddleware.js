@@ -8,6 +8,10 @@ const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+const JWT_ISSUER = process.env.JWT_ISSUER || "hustlehub-api";
+
+const JWT_AUDIENCE = process.env.JWT_AUDIENCE || "hustlehub-client";
+
 // Middleware that verifies the JWT Bearer token, rejects missing, malformed, invalid
 // or expired tokens with 401 and attaches the decoded user payload to req.user for protected routes.
 const authMiddleware = (req, res, next) => {
@@ -19,16 +23,24 @@ const authMiddleware = (req, res, next) => {
     return next(error);
   }
 
-  const token = authHeader.split(" ")[1];
+  const token = authHeader.substring(7);
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET,
+      { 
+        algorithms: ["HS256"],
+        issuer: JWT_ISSUER,
+        audience: JWT_AUDIENCE
+      }
+    );
     req.user = decoded; 
     next();
   } catch (err) {
+   console.error("JWT verification failed:", err.message);
+
     const error = new Error("Invalid or expired token");
     error.statusCode = 401;
-    next(error);
+    return next(error);
   }
 };
 

@@ -18,15 +18,19 @@ const {
   registerValidationRules,
   loginValidationRules,
   updateProfileValidationRules,
-  handleValidationErrors
+  handleValidationErrors,
+  rejectUnexpectedFields
 } = require("../middleware/validateAuth");
 
 const authMiddleware = require("../middleware/authMiddleware");
+const {authLimiter} = require('../middleware/rateLimiters')
 
 const router = express.Router();
 
 router.post(
   "/register",
+  authLimiter,
+  rejectUnexpectedFields(["name","email", "password","role"]),
   registerValidationRules,
   handleValidationErrors,
   register
@@ -34,6 +38,7 @@ router.post(
 
 router.post(
   "/login",
+  authLimiter,
   loginValidationRules,
   handleValidationErrors,
   login

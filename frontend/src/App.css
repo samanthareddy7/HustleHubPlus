@@ -1,0 +1,13 @@
+.auth-page {
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(13, 110, 253, 0.08),
+            transparent 35%
+        ),
+        #f5f7fb;
+}
+
+.auth-card {
+    background: #ffffff;
+}
