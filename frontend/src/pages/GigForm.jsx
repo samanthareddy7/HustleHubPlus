@@ -1,3 +1,16 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/learn/updating-objects-in-state
+Reason: Used to store and update the gig form fields in a single state object.
+*/
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/forms/validation/
+Reason: Used Bootstrap validation classes to display field errors on the gig form.
+*/
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {

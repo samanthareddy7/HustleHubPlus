@@ -1,3 +1,16 @@
+/*
+Author: Ilya Kantor
+Date Accessed: 11 October 2026
+Link: https://javascript.info/fetch
+Reason: Used to send API requests with fetch, attach headers and handle non-OK responses.
+*/
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+Reason: Used to store and clear the JWT and user details in sessionStorage.
+*/
+
 //connects backend and frontend 
 //centralises the location of the backend 
 //instead of making every conpoment independently find the backend, we store it here 
@@ -27,6 +40,7 @@ export const getSavedUser =() => {
 
 //generic api request 
 
+//generic api request
 export const apiRequest = async (path, options = {}) => {
     const token = getToken();
 
@@ -40,20 +54,12 @@ export const apiRequest = async (path, options = {}) => {
     }
 
     try {
-        console.log("API REQUEST:", `${API_URL}${path}`);
-        console.log("METHOD:", options.method || "GET");
-        console.log("BODY:", options.body);
-
         const response = await fetch(`${API_URL}${path}`, {
             ...options,
             headers
         });
 
-        console.log("API STATUS:", response.status);
-
         const data = await response.json().catch(() => ({}));
-
-        console.log("API RESPONSE:", data);
 
         if (!response.ok) {
             throw new Error(
@@ -66,14 +72,11 @@ export const apiRequest = async (path, options = {}) => {
         return data;
 
     } catch (error) {
-        console.error("API REQUEST ERROR:", error);
-
         if (error instanceof TypeError) {
             throw new Error(
                 "Unable to connect to the backend. Check that the API is running and the API URL is correct."
             );
         }
-
         throw error;
     }
 };
@@ -176,6 +179,28 @@ const completeBooking = async (id) => {
 const getFreelancerIncome = async () => {
     return apiRequest("/transactions/income");
 };
+//admin
+const getAdminStats = async () => {
+    return apiRequest("/admin/stats");
+};
+
+const getAdminUsers = async () => {
+    return apiRequest("/admin/users");
+};
+
+const getAdminBookings = async () => {
+    return apiRequest("/admin/bookings");
+};
+
+const deactivateGig = async (id) => {
+    return apiRequest(`/admin/gigs/${id}/deactivate`, {
+        method: "PATCH"
+    });
+};
+
+const getAdminGigs = async () => {
+    return apiRequest("/admin/gigs");
+};
 
 export{
     getHealth,
@@ -191,7 +216,12 @@ export{
     getMyBookings,
     getFreelancerBookings,
     completeBooking,
-    getFreelancerIncome
+    getFreelancerIncome,
+    getAdminStats,
+    getAdminUsers,
+    getAdminBookings,
+    deactivateGig,
+    getAdminGigs
 };
 
 

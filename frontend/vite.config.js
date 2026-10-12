@@ -1,7 +1,56 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+/*
+Author: Vite
+Date Accessed: 11 October 2026
+Link: https://vite.dev/guide/api-plugin
+Reason: Used to write a custom Vite plugin with transformIndexHtml that injects the Content Security Policy meta tag at build time.
+*/
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
+import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from 'vite'
+import fs from 'fs'
+import path from 'path'
+
+const cspPlugin = (apiOrigin) => ({
+  name: 'inject-csp',
+  apply: 'build',
+  transformIndexHtml(html) {
+    const csp = [
+      "default-src 'self'",
+      "script-src 'self'",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' data: https://fonts.gstatic.com",
+      "img-src 'self' data:",
+      `connect-src 'self' ${apiOrigin}`.trim(),
+      "object-src 'none'",
+      "base-uri 'none'",
+      "form-action 'self'",
+    ].join('; ')
+
+    return html.replace(
+      '<head>',
+      `<head>\n    <meta http-equiv="Content-Security-Policy" content="${csp}" />`
+    )
+  },
+})
+
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+
+  let apiOrigin = ''
+  try {
+    apiOrigin = new URL(env.VITE_API_URL).origin
+  } catch {
+    apiOrigin = ''
+  }
+
+  return {
+    plugins: [react(), cspPlugin(apiOrigin)],
+    server: {
+      https: {
+        key: fs.readFileSync(path.resolve(__dirname, 'certificates/privatekey.pem')),
+        cert: fs.readFileSync(path.resolve(__dirname, 'certificates/certificate.pem'))
+      },
+      port: 5173
+    }
+  }
 })

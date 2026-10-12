@@ -1,3 +1,16 @@
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/components/navbar/
+Reason: Used to build the responsive Bootstrap navigation bar with the collapse toggler.
+*/
+/*
+Author: React Router
+Date Accessed: 11 October 2026
+Link: https://reactrouter.com/api/hooks/useNavigate
+Reason: Used useNavigate to redirect the user to the login page after logging out.
+*/
+
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
@@ -66,6 +79,13 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/dashboard">
                                     Dashboard
+                                </Link>
+                            </li>
+                        )}
+                                                {token && user?.role === "admin" && (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/admin">
+                                    Admin
                                 </Link>
                             </li>
                         )}

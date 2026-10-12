@@ -1,3 +1,16 @@
+/*
+Author: Mongoose
+Date Accessed: 11 October 2026
+Link: https://mongoosejs.com/docs/queries.html
+Reason: Used to write the Mongoose queries (find, findOne, populate and sort) for the gig CRUD operations.
+*/
+/*
+Author: W3Schools
+Date Accessed: 11 October 2026
+Link: https://www.w3schools.com/nodejs/nodejs_mongodb_query.asp
+Reason: Used to filter gigs by fields such as isActive and freelancer in MongoDB queries.
+*/
+
 const Gig = require("../models/gigs");
 
 
@@ -7,7 +20,7 @@ const getGigs = async (req, res, next) => {
         const gigs = await Gig.find({
             isActive : true
         })
-        .populate("freelancer","name email")
+        .populate("freelancer","name")
         .sort({createdAt: -1})
 
         res.status(200).json({gigs});
@@ -26,7 +39,7 @@ const getGigById = async(req,res,next) => {
             isActive: true
         }).populate(
             "freelancer",
-            "name email"
+            "name"
         );
 
         if(!gig) {

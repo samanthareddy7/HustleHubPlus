@@ -1,3 +1,16 @@
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/components/progress/
+Reason: Used Bootstrap progress bars to show completed and pending income visually.
+*/
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/learn/rendering-lists
+Reason: Used map() with keys to render the list of transactions.
+*/
+
 import { useEffect, useState } from "react";
 import { getFreelancerIncome } from "../services/api";
 

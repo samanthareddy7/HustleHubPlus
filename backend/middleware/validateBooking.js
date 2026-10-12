@@ -1,3 +1,10 @@
+/*
+Author: validator.js
+Date Accessed: 11 October 2026
+Link: https://www.npmjs.com/package/validator
+Reason: Used the isMongoId validator to check that gig and booking IDs are valid MongoDB ObjectIds.
+*/
+
 const { body,param, validationResult } = require("express-validator");
 
 const createBookingValidationRules = [

@@ -1,3 +1,10 @@
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/routes
+Reason: Used to structure public and freelancer gig routes and connect them to controller functions.
+*/
+
 const express = require("express");
 
 const router = express.Router();

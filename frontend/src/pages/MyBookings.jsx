@@ -1,3 +1,16 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/learn/synchronizing-with-effects
+Reason: Used useEffect to load the client's bookings when the page opens.
+*/
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/content/tables/
+Reason: Used a responsive Bootstrap table to list the bookings.
+*/
+
 import { useEffect, useState } from "react";
 import { getMyBookings } from "../services/api";
 

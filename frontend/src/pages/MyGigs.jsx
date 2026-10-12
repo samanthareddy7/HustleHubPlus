@@ -1,3 +1,16 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/learn/updating-arrays-in-state
+Reason: Used to update the gigs state without mutating the array after a gig is deleted.
+*/
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+Reason: Used Array.filter to remove the deleted gig from the list of gigs.
+*/
+
 import { useEffect, useState } from "react";
 import {
     getMyGigs,

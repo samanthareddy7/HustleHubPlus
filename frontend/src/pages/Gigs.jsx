@@ -1,3 +1,16 @@
+/*
+Author: Ijeoma Igboagu
+Date Accessed: 11 October 2026
+Link: https://www.freecodecamp.org/news/how-to-fetch-api-data-in-react/
+Reason: Used to fetch the gigs from the API and handle loading and error states.
+*/
+/*
+Author: Microsoft
+Date Accessed: 11 October 2026
+Link: https://learn.microsoft.com/en-us/windows/dev-environment/javascript/react-beginners-tutorial
+Reason: Used to fetch data with useState and useEffect and render it with map().
+*/
+
 import { useEffect, useState } from "react";
 import { getGigs, createBooking } from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -199,29 +212,29 @@ function Gigs() {
                                         </div>
                                     </div>
 
-                                    <div className="d-flex justify-content-between align-items-center">
+                                   <h5 className="fw-bold mb-3">
+    {formatCurrency(gig.price)}
+</h5>
 
-                                        <h5 className="fw-bold mb-0">
-                                            {formatCurrency(gig.price)}
-                                        </h5>
+<div className="d-flex gap-2">
 
-                                        <button
-                                            className="btn btn-primary"
-                                            onClick={() =>
-                                                handleBookClick(gig)
-                                            }
-                                        >
-                                            Book Now
-                                        </button>
+    <button
+        className="btn btn-primary flex-fill text-nowrap"
+        onClick={() =>
+            handleBookClick(gig)
+        }
+    >
+        Book Now
+    </button>
 
-                                        <button
-                                        className="btn btn-primary"
-                                        onClick={() => navigate(`/gigs/${gig._id}`)}
-                                    >
-                                        View Details
-                                    </button>
+    <button
+        className="btn btn-primary flex-fill text-nowrap"
+        onClick={() => navigate(`/gigs/${gig._id}`)}
+    >
+        View Details
+    </button>
 
-                                    </div>
+</div>
 
                                 </div>
                             </div>

@@ -1,3 +1,10 @@
+/*
+Author: MongoDB
+Date Accessed: 11 October 2026
+Link: https://www.mongodb.com/docs/manual/core/index-unique/
+Reason: Used to apply a unique index on the booking field so each booking has only one transaction.
+*/
+
 const mongoose = require("mongoose");
 
 const transactionSchema = new mongoose.Schema(

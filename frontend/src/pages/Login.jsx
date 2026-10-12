@@ -1,3 +1,16 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/reference/react/useState
+Reason: Used useState to store the email, password, loading and error values.
+*/
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/forms/form-control/
+Reason: Used Bootstrap form controls to style the login inputs.
+*/
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser, saveAuth } from "../services/api";

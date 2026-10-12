@@ -1,3 +1,16 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/reference/react/useEffect
+Reason: Used useEffect to check gig ownership when the component loads or the gig ID changes.
+*/
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/components/spinners/
+Reason: Used to display a Bootstrap loading spinner while ownership is being checked.
+*/
+
 import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { getMyGigs, getToken, getSavedUser } from "../services/api";

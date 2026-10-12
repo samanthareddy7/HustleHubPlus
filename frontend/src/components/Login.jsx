@@ -1,3 +1,16 @@
+/*
+Author: React
+Date Accessed: 11 October 2026
+Link: https://react.dev/learn/reacting-to-input-with-state
+Reason: Used to manage the login form inputs, loading and error states with React state.
+*/
+/*
+Author: Bootstrap
+Date Accessed: 11 October 2026
+Link: https://getbootstrap.com/docs/5.3/components/card/
+Reason: Used to style the login form inside a Bootstrap card.
+*/
+
 import {useState} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import {loginUser, saveAuth} from '../services/api'

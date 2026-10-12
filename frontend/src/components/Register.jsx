@@ -1,3 +1,16 @@
+/*
+Author: MDN Web Docs
+Date Accessed: 11 October 2026
+Link: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
+Reason: Used event.preventDefault() so React handles the form submission instead of the browser reloading the page.
+*/
+/*
+Author: W3Schools
+Date Accessed: 11 October 2026
+Link: https://www.w3schools.com/react/react_forms.asp
+Reason: Used to create controlled form inputs for the registration form.
+*/
+
 import {useState} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import {registerUser} from '../services/api'

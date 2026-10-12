@@ -1,3 +1,10 @@
+/*
+Author: Mongoose
+Date Accessed: 11 October 2026
+Link: https://mongoosejs.com/docs/validation.html
+Reason: Used to add built-in schema validators (required, min, maxlength) to the gig model.
+*/
+
 const mongoose = require("mongoose");
 
 const gigSchema = new mongoose.Schema(

@@ -1,3 +1,12 @@
+
+
+/*
+Author: React Router
+Date Accessed: 11 October 2026
+Link: https://reactrouter.com/start/declarative/routing
+Reason: Used to set up BrowserRouter, Routes and Route for the application pages and the 404 route.
+*/
+
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -5,7 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import RoleRoute from "./components/RoleRoute";
 import OwnerRoute from "./components/OwnerRoute";
 
-import Home from "./pages/home";
+import Home from "./pages/Home";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -17,6 +26,7 @@ import GigDetails from "./pages/GigDetails";
 import MyBookings from "./pages/MyBookings";
 import FreelancerBookings from "./pages/FreelancerBookings";
 import FreelancerIncome from "./pages/FreelancerIncome";
+import AdminDashboard from "./pages/AdminDashboard";
 
 import "./App.css";
 
@@ -51,7 +61,7 @@ function App() {
                      <Route path="/my-bookings" element={ <ProtectedRoute> <MyBookings /> </ProtectedRoute> } />  
                      <Route path="/freelancer-bookings" element={  <RoleRoute allowedRole="freelancer"> <FreelancerBookings /> </RoleRoute> } />  
                      <Route path="/income" element={  <RoleRoute allowedRole="freelancer"> <FreelancerIncome /> </RoleRoute> } />  
-
+<Route path="/admin" element={ <RoleRoute allowedRole="admin"> <AdminDashboard /> </RoleRoute> } />
 
                      <Route path="*" element={ <div className="container py-5"> <h1>404</h1> <p> Page not found. </p> </div> } /> 
                 

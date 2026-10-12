@@ -1,3 +1,10 @@
+/*
+Author: Mongoose
+Date Accessed: 11 October 2026
+Link: https://mongoosejs.com/docs/populate.html
+Reason: Used to reference the Gig and User models with ObjectId refs so bookings can be populated.
+*/
+
 const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
